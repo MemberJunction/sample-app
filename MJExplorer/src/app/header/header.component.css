@@ -1,0 +1,60 @@
+.title {
+   cursor: pointer;
+   max-width: 100px;
+}
+
+.logo {
+   width: 50px;
+   height: 50px;
+   cursor: pointer;
+}
+
+.sidecar-logo {
+   max-height: 15px;
+  margin-right: 25px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.app-header {
+   border-bottom: 1px solid #E9EDEB;
+   background: #fff;
+   margin: 0 auto;
+   padding: 15px 0;
+   /* line-height: 80px; */
+   box-shadow: none;
+}
+
+@media (max-width: 767px) {
+   .app-header {
+      max-width: 100%;
+      padding: 5px 16px;
+      line-height: 52px;
+      box-shadow: none;
+      box-sizing: border-box;
+   }
+  .app-header .k-appbar-section .title {
+     display: none;
+  }
+
+  .logo {
+     width: 42px;
+     height: 42px;
+  }
+}
+
+@media screen and (min-width: 1401px) {
+   .app-header {
+       max-width: 1320px;
+   }
+}
+@media screen and (max-width: 1199px) {
+   .app-header {
+       max-width: 960px;
+   }
+}
+@media screen and (max-width: 991px) {
+   .app-header {
+       max-width: 720px;
+   }
+}

@@ -1,0 +1,26 @@
+<div>
+  <kendo-appbar class="app-header">
+      <kendo-appbar-section>
+        <img src="../../assets/Green Gopher - Mark Only - White Circle.png" alt="logo" class="logo" (click)="goToHome()"/>
+      </kendo-appbar-section>
+      <kendo-appbar-section>
+        <img src="../../assets/Green Gopher - Text Only.png" (click)="goToHome()" class="title">
+      </kendo-appbar-section>
+
+      <kendo-appbar-spacer width="32px"></kendo-appbar-spacer>
+
+      <kendo-appbar-spacer></kendo-appbar-spacer>
+      <kendo-appbar-section>
+      </kendo-appbar-section>
+
+
+      <kendo-appbar-section class="login-section">
+        <ng-container *ngIf="authBase.authenticated">
+          <button class="logout-btn" kendoButton (click)="doLogOut()">
+            <img src="../../assets/logout.svg" alt="">
+            <span>Log out</span>
+          </button>
+        </ng-container>
+      </kendo-appbar-section>
+    </kendo-appbar>
+</div>
