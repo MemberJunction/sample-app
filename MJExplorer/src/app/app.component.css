@@ -1,17 +1,21 @@
-.app-main {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+.app-wrap {
+    height: 100%;
     width: 100%;
-}
-
-.app-header {
-    height: 80px;
+ }
+ 
+ 
+ .app-body {
     width: 100%;
-}
-
-.app-body {
-    flex-grow: 1; /* Takes up the remaining space */
-    width: 100%;
-}
-  
+    /* Additional styling */
+ }
+ 
+ .home-auth-button-container{
+    align-items: center;
+    justify-content: center;
+ }
+ 
+ .home-auth-button-container button{
+    padding: 15px 30px;
+    font-size: 18px;
+    margin: 10px;
+ }

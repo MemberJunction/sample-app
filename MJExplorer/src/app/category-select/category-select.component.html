@@ -1,0 +1,51 @@
+<ng-container *ngIf="auth.authenticated">
+    <div *ngIf="!loaded">
+      <div class="gg-loader">
+        <img src="../../assets/loader.gif"/>
+      </div>
+    </div>
+    <div *ngIf="loaded" class="interior-component">
+      <div class="breadcrumbWrapper">
+        <div class="container-large">
+          <div class="breadcrumb">
+            <a routerLink="/">
+              <kendo-icon name="home"></kendo-icon>
+            </a>
+            <kendo-icon name="arrow-chevron-right"></kendo-icon> <a class="active">Book by Category</a>
+      
+          </div>
+          <div class="back-sec">
+            <a routerLink="/">
+            <kendo-icon name="arrow-chevron-left"></kendo-icon>
+            Back
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="header-banner">
+        <h2>Select a Category From The List Below</h2>
+      </div>
+      <div class="role-select-wrapper">
+        <div class="container-large">
+          <div class="role-select-container">
+            <div class="role-container" *ngFor="let category of categories" (click)="categorySelect(category)">
+              <div class="wrapper">
+                <div class="icon-left">
+                  <kendo-icon name="book"></kendo-icon>
+                </div>
+                <div class="role-info">
+                <h5 class="card-title role-name">{{ category.Name }}</h5>
+                </div>
+                </div>
+                <div class="icon-right">
+                  <button class="chevron-button">
+                  <kendo-icon name="arrow-chevron-right"></kendo-icon>
+                  </button>
+              </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  

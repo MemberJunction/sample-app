@@ -6,10 +6,9 @@ import { setupGraphQLClient, GraphQLProviderConfigData } from '@memberjunction/g
 import { lastValueFrom } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from '../environments/environment';
-import { NavigationComponent } from '@memberjunction/ng-explorer-core';
 import { LoadGeneratedEntities } from 'mj_generatedentities'
 import { MJAuthBase } from '@memberjunction/ng-auth-services';
-import { SharedService } from '@memberjunction/ng-explorer-core';
+import { SharedService } from './utils/shared-service';
 LoadGeneratedEntities(); // forces the generated entities library to load up, sometimes tree shaking in the build process can break this, so this is a workaround that ensures it always happens
 
 @Component({
@@ -25,9 +24,7 @@ export class AppComponent implements OnInit {
   public ErrorMessage: any = '';
   public environment = environment;
 
-  @ViewChild(NavigationComponent, { static: false }) nav!: NavigationComponent;
-
-  constructor(private router: Router, @Inject(DOCUMENT) public document: Document, public authBase: MJAuthBase) { }
+  constructor(@Inject(DOCUMENT) public document: Document, public authBase: MJAuthBase, private sharedService: SharedService) { }
 
   public doSignUp() {
     this.authBase.login({
@@ -49,8 +46,6 @@ export class AppComponent implements OnInit {
         const end = Date.now();
         LogStatus(`GraphQL Client Setup took ${end - start}ms`);
 
-        await SharedService.RefreshData();
-
         // Check to see if the user has access... 
         const md = new Metadata();
         if (!md.CurrentUser) {
@@ -58,22 +53,14 @@ export class AppComponent implements OnInit {
           this.HasError = true;
           this.ErrorMessage = `You don't have access to the application, contact your system administrator.`
           throw this.ErrorMessage;
+        } else {
+          const setupStart = new Date();
+          await this.sharedService.doSetup();
+          const setupEnd = new Date();
+          const setupElapsed = (setupEnd.getTime() - setupStart.getTime()) / 1000;
+          console.log(`setupService.doSetup() took ${setupElapsed} seconds`);
         }
-
-
         localStorage.removeItem('jwt-retry-ts');
-        // if (this.initalPath === '/') {
-        //   // use first nav item url instead
-        //   //this.nav.drawerItems[0].selected = true;
-        //   setTimeout(() => {
-        //     // Find the KendoDrawer element, and simulate a click for the first item
-        //     const drawerElement = this.document.querySelector('li.k-drawer-item.k-level-0') as any;
-
-        //     if (drawerElement) drawerElement.click();
-        //   }, 10); // wait for the drawer to finish rerender and then do this
-        // } else {
-        //   this.router.navigateByUrl(this.initalPath, { replaceUrl: true });
-        // }
       } catch (err) {
         const retryKey = 'auth-retry-dt';
         const lastRetryDateTime = localStorage.getItem(retryKey);
@@ -126,9 +113,5 @@ export class AppComponent implements OnInit {
     SetProductionStatus(environment.production)
     this.setupAuth();
   }
- 
 
-  public toggleDrawer(args: any): void {
-    this.nav.toggle();
-  }
 }

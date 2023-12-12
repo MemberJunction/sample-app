@@ -1,0 +1,41 @@
+<div *ngIf="!loaded">
+    <!-- <kendo-loader type="infinite-spinner" themeColor="primary" size="large"></kendo-loader> -->
+    <div class="gg-loader">
+      <img src="../../assets/loader.gif"/>
+    </div>
+  </div>
+  <div *ngIf="loaded && category" class="role-wrap">
+    <div class="breadcrumbWrapper">
+      <div class="container-large">
+        <div class="breadcrumb">
+          <a routerLink="/">
+            <kendo-icon name="home"></kendo-icon>
+          </a> <kendo-icon name="arrow-chevron-right"></kendo-icon> <a routerLink="/select-role">Books By Category</a> 
+          <kendo-icon name="arrow-chevron-right"></kendo-icon><span class="active">{{category.Name}}</span>
+        </div>
+        <div class="back-sec">
+          <a routerLink="/select-role"><kendo-icon name="arrow-chevron-left"></kendo-icon>
+          Back</a>
+        </div>
+      </div>
+    </div>
+    <section class="tab-main-wrap">
+      <div class="container-large">
+        <div class="editorial-main-wrapper">
+            <div class="role-title">
+                <h3>Books by Category: {{category.Name}}</h3>
+            </div>
+          <div class="layout-wrapper filter-close">
+            <div class="grid-wrap">
+              <kendo-grid [kendoGridBinding]='booksByCategory' (cellClick)="onGridRowClick($event)" [pageSize]="10" [pageable]="true">
+                <kendo-grid-column field="Name" title="Name" format="c0"></kendo-grid-column>
+                <kendo-grid-column field="Pages" title="Pages"></kendo-grid-column>
+                <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
+              </kendo-grid>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

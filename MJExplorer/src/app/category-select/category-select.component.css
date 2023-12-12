@@ -1,0 +1,165 @@
+.role-select-container-header {
+    padding-top: 10px;
+        padding-left: 10px;
+    }
+    .container-large {
+        max-width: 1240px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    .role-select-container {
+    margin: 0px;
+    background: #fff;
+        overflow: auto;
+        display: grid;
+        grid-gap: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        padding: 50px 20px;
+    }
+    .role-container {
+    border-radius: 25px;
+        background: #fff;
+        box-shadow: 0px 0px 10px 0px rgba(66, 66, 66, 0.1);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+    word-break: break-word;
+        padding: 25px;
+    }
+    
+    .role-container .wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .icon-left {
+    flex: 0 0 auto;
+    width: 50px;
+        min-width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        justify-content: center;
+    background-color: #6fc067;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .role-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    align-items: center;
+        /* Center the items horizontally */
+    }
+    
+    .icon-left .k-icon {
+        width: 24px;
+        height: 24px;
+        color: #fff;
+    }
+    
+    .card-title {
+        margin: 0;
+        color: #35353d;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 125%;
+        text-decoration: none;
+    }
+    
+    .icon-right {
+    position: absolute;
+        right: 20px;
+    }
+    
+    .chevron-button {
+    background: none;
+        border: none;
+        cursor: pointer;
+    padding: 0;
+    }
+    
+    .chevron-button .k-i-arrow-chevron-right {
+        font-size: 25px;
+    }
+    
+    .role-select-wrapper {
+        overflow: auto;
+        flex: 1;
+        box-sizing: border-box;
+    }
+    
+    .breadcrumbWrapper {
+        border-bottom: 1px solid #e9edeb;
+        background: #e9edeb;
+    }
+    
+    .breadcrumb {
+        padding: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 48px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .active {
+        color: var(--Secondary-Green, #6fc067);
+        cursor: pointer;
+    
+    }
+    
+    .breadcrumb .k-icon {
+        color: #28533f;
+    }
+    
+    .back-sec {
+        display: none;
+    }
+    
+    @media screen and (max-width: 767px) {
+        .breadcrumb {
+            display: none;
+        }
+    
+      .back-sec {
+          padding: 0 16px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        color: #424242;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 48px;
+        }
+        
+        .role-select-container {
+            grid-gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            padding: 25px 16px;
+        }
+        
+        .role-container {
+            padding: 20px;
+            gap: 10px;
+        }
+        
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 135%;
+        }
+        
+        .icon-left {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+        }
+    }
+    

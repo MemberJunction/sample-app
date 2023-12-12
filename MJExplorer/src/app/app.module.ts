@@ -52,6 +52,11 @@ import { GeneratedFormsModule } from './generated/generated-forms.module';
 import { environment } from 'src/environments/environment';
 import 'hammerjs';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { CategorySelectComponent } from './category-select/category-select.component';
+import { SearchBookComponent } from './search-book/search-book.component';
+import { CategoryComponent } from './category/category.component';
+import { BookDetailComponent } from './book-detail/book-detail.component';
 
 LoadResourceWrappers();
 
@@ -69,7 +74,12 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent,
+    CategorySelectComponent,
+    SearchBookComponent,
+    CategoryComponent,
+    BookDetailComponent
   ],
   imports: [
     BrowserModule,
