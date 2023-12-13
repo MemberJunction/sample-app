@@ -16,6 +16,7 @@ import { SearchBookComponent } from './search-book/search-book.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { AdminModule } from './admin/admin.module';
 import { TopicsComponent } from './admin/topics/topics.component';
+import { CartComponent } from './cart/cart.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'book-detail/:bookId',
     component: BookDetailComponent
+  },
+  {
+    path: 'cart',
+    component: CartComponent
   },
   {
     path: 'admin',

@@ -66,7 +66,6 @@ export class TopicDetailComponent {
         if (this.topicId !== null && this.topicId !== undefined) {
           if (this.topic === null || this.topic === undefined) {
             this.topic = this.sharedData.BookTopics.find(r => r.ID === this.topicId);
-            debugger
           }
           if (this.topic !== null && this.topicId !== undefined) {
             this.groupAndFilterData();
