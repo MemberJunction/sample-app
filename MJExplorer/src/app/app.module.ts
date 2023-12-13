@@ -57,6 +57,7 @@ import { CategorySelectComponent } from './category-select/category-select.compo
 import { SearchBookComponent } from './search-book/search-book.component';
 import { CategoryComponent } from './category/category.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { AdminModule } from './admin/admin.module';
 
 LoadResourceWrappers();
 
@@ -140,7 +141,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
       ])
     }),
     ChartsModule,
-    ListBoxModule
+    ListBoxModule,
+    AdminModule
   ],
   providers: [SharedService,
     MsalService,

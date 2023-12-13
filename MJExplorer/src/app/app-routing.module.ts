@@ -14,6 +14,8 @@ import { CategorySelectComponent } from './category-select/category-select.compo
 import { CategoryComponent } from './category/category.component';
 import { SearchBookComponent } from './search-book/search-book.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { AdminModule } from './admin/admin.module';
+import { TopicsComponent } from './admin/topics/topics.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,10 @@ const routes: Routes = [
     path: 'book-detail/:bookId',
     component: BookDetailComponent
   },
+  {
+    path: 'admin',
+    loadChildren: () => AdminModule,
+},
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '**', redirectTo: 'home' 
