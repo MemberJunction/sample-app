@@ -1,1 +1,28 @@
-<p>cart works!</p>
+<section class="cart-store-container">
+  <div class="cart-details-wrapper">
+    <h1>Your Shopping Cart</h1>
+    <div class="cart-container">
+      <div class="product" *ngFor="let book of cartItems">
+        <img src="https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=600"
+          alt="Product 1" />
+        <div class="product-info">
+          <h2>{{book.Name}}</h2>
+          <p>{{book.Description}}</p>
+          <p class="price">${{calculateTotal(book)}}</p>
+          <div class="btn-grp">
+            <button (click)="decreaseQuantity(book)">-</button>
+            <h5>{{book.Quantity}}</h5>
+            <button (click)="increaseQuantity(book)">+</button>
+          </div>
+          <button class="remove-button" (click)="removeItem(book)">Remove</button>
+        </div>
+      </div>
+      <div class="total">
+        <p>Total: ${{grandTotal}}</p>
+        <kendo-button [primary]="true" routerLink="/home" class="k-mr-4">
+          Continue Shopping</kendo-button>
+        <button class="checkout-button" (click)="checkout()">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+</section>
