@@ -28,7 +28,6 @@ export class SingleOrderComponent implements OnInit {
       this.isLoading = false;
       this.books = result.Results;
       this.getBookDetails(this.books);
-      console.log(result.Results);
     }
   }
 
