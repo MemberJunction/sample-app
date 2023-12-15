@@ -13,7 +13,10 @@
       [navigable]="true"
     >
       <ng-template kendoGridToolbarTemplate>
-        <button kendoGridAddCommand>Add new</button>
+        <div class="custom-header">
+          <h5>List of Topics</h5>
+          <button kendoGridAddCommand>Add new</button>
+        </div>
       </ng-template>
       <kendo-grid-column field="Name" title="Name" format="c0"></kendo-grid-column>
       <kendo-grid-column field="Description" title="Description"></kendo-grid-column>

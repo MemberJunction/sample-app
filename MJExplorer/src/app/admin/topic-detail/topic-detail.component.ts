@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Metadata, RunView } from '@memberjunction/core';
 import { AddEvent, CancelEvent, EditEvent, GridComponent, RemoveEvent, SaveEvent } from '@progress/kendo-angular-grid';
-import { BookEntity, TopicEntity } from 'mj_generatedentities';
+import { BookCategoryEntity, BookEntity, BookTopicEntity, TopicEntity } from 'mj_generatedentities';
 import { SharedData } from 'src/app/utils/shared-data';
 import { SharedService } from 'src/app/utils/shared-service';
 
@@ -15,14 +15,15 @@ import { SharedService } from 'src/app/utils/shared-service';
 })
 export class TopicDetailComponent {
   public loaded: boolean = false;
-  public booksByTopic: any[] = [];
-  public topicId: number | null = null
+  public booksByTopic: BookEntity[] = [];
+  public topicId!: number;
   public topic: TopicEntity | undefined = undefined;
-  public formGroup: FormGroup | undefined;
+  public formGroup: FormGroup = new FormGroup({});
   public readyToLoad: boolean = false;
   private editedRowIndex: number | undefined;
   private md = new Metadata();
   public bookEntity !: BookEntity;
+  public categories: any[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private sharedService: SharedService, public sharedData: SharedData, public titleService: Title) {
     this.route.params.subscribe(params => {
@@ -36,11 +37,12 @@ export class TopicDetailComponent {
     this.sharedService.setupComplete$.subscribe(isComplete => {
       if (isComplete) {
         this.loadData();
+        this.categories = this.sharedData.BookCategories.sort((a: BookCategoryEntity, b: BookCategoryEntity) => { return a.Name > b.Name ? 1 : -1 });
       }
     });
   }
 
-  async groupAndFilterData() {
+  async getLatestData() {
     setTimeout(async () => {
       const rv = new RunView();
       const result = await rv.RunView({
@@ -51,13 +53,8 @@ export class TopicDetailComponent {
       if (result.Success) {
         this.booksByTopic = result.Results;
       }
-      // update the browser title
       this.titleService.setTitle(`${this.topic?.Name}`)
     }, 50);
-  }
-
-  handleGroupBy() {
-    this.groupAndFilterData();
   }
 
   async loadData() {
@@ -65,10 +62,10 @@ export class TopicDetailComponent {
       if (isComplete) {
         if (this.topicId !== null && this.topicId !== undefined) {
           if (this.topic === null || this.topic === undefined) {
-            this.topic = this.sharedData.BookTopics.find(r => r.ID === this.topicId);
+            this.topic = this.sharedData.Topics.find(r => r.ID === this.topicId);
           }
           if (this.topic !== null && this.topicId !== undefined) {
-            this.groupAndFilterData();
+            this.getLatestData();
             this.loaded = true;
           }
         }
@@ -81,6 +78,7 @@ export class TopicDetailComponent {
     // define all editable fields validators and default values
     this.formGroup = new FormGroup({
       ID: new FormControl(),
+      BookCategoryID: new FormControl(this.categories[0].ID, Validators.required),
       Name: new FormControl('', Validators.required),
       Pages: new FormControl('', Validators.required),
       Description: new FormControl('', Validators.required),
@@ -96,6 +94,7 @@ export class TopicDetailComponent {
 
     this.formGroup = new FormGroup({
       ID: new FormControl(dataItem.ID),
+      BookCategoryID: new FormControl(dataItem.BookCategoryID, Validators.required),
       Name: new FormControl(dataItem.Name, Validators.required),
       Pages: new FormControl(dataItem.Pages, Validators.required),
       Description: new FormControl(dataItem.Description, Validators.required),
@@ -112,40 +111,65 @@ export class TopicDetailComponent {
   }
 
   public async saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent) {
-    const { ID, Name,Pages, Description} = formGroup.value;
+    const { ID, Name, Pages, Description, BookCategoryID } = formGroup.value;
     this.bookEntity = <BookEntity>await this.md.GetEntityObject('Books');
-    await this.bookEntity.Load(ID);
+    if (isNew) {
+      this.bookEntity.NewRecord();
+    } else {
+      await this.bookEntity.Load(ID);
+    }
+    this.bookEntity.BookCategoryID = BookCategoryID;
     this.bookEntity.Name = Name;
     this.bookEntity.Pages = Pages;
     this.bookEntity.Description = Description;
     await this.bookEntity.Save();
+    if (isNew) {
+      const bookTopic = <BookTopicEntity>await this.md.GetEntityObject('Book Topics');
+      bookTopic.NewRecord();
+      bookTopic.BookID = this.bookEntity.ID;
+      bookTopic.TopicID = this.topicId;
+      bookTopic.Save();
+    }
+    this.getLatestData();
     sender.closeRow(rowIndex);
   }
 
   public async removeHandler(args: RemoveEvent) {
-    console.log(args);
-    const { ID, Name, Description} = args.dataItem;
+    const { ID } = args.dataItem;
     this.bookEntity = <BookEntity>await this.md.GetEntityObject('Books');
-    await this.bookEntity.Load(ID);
-    if(!await this.bookEntity.Delete()){
-      this.sharedService.DisplayNotification('Error deleting Book details', 'error');
+    const rv = new RunView();
+    const result = await rv.RunView({
+      EntityName: 'Book Topics',
+      ExtraFilter: `TopicID=${this.topicId} AND BookID=${ID}`
+    });
+    if (result.Success && result.Results.length) {
+      const bookTopicEntity = <BookTopicEntity>await this.md.GetEntityObject('Book Topics');
+      const bookTopic: any = result.Results;
+      await bookTopicEntity.Load(bookTopic[0].ID);
+      await this.bookEntity.Load(ID);
+      if (!await bookTopicEntity.Delete() || !await this.bookEntity.Delete()) {
+        this.sharedService.DisplayNotification('Error deleting Book details', 'error');
+      } else {
+        this.getLatestData();
+      }
     }
+
   }
 
   private closeEditor(grid: GridComponent, rowIndex = this.editedRowIndex) {
-    // close the editor
     grid.closeRow(rowIndex);
-    // reset the helpers
     this.editedRowIndex = undefined;
-    this.formGroup = undefined;
   }
 
 
   onGridRowClick(e: any) {
-      this.router.navigate(['book-detail', e.dataItem.ID]);
+    if(e.columnIndex !== 4) {
+    this.router.navigate(['book-detail', e.dataItem.ID]);
+    }
   }
 
   navTo(url: string) {
     this.router.navigate([url]);
   }
+
 }

@@ -1,5 +1,13 @@
 .topics-container {
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
+  margin: 0 auto;
+  padding: 20px;
+}
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.custom-header h5 {
+  margin: 0;
+}

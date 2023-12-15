@@ -59,7 +59,6 @@ export class CategoryComponent {
         if (this.categoryId !== null && this.categoryId !== undefined) {
           if (this.category === null || this.category === undefined) {
             this.category = this.sharedData.BookCategories.find(r => r.ID === this.categoryId);
-            console.log(this.category);
           }
           if (this.category !== null && this.category !== undefined) {
             // get the tax data for this role from the shared data cache

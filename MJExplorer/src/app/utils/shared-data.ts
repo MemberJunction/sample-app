@@ -10,7 +10,7 @@ export class SharedData {
     [key: string]: any; // Index signature
 
     protected bookCategories: BookCategoryEntity[] = []
-    protected bookTopics: BookCategoryEntity[] = []
+    protected topics: TopicEntity[] = []
     private static _instance: SharedData;
     private _keyPrefix = "__green_gopher_";
     private _updatedDateKeyBase = this._keyPrefix + "updatedDate";
@@ -30,7 +30,7 @@ export class SharedData {
             entities: [ 
                 {
                     entityName: 'Topics', 
-                    code: 'bookTopics' 
+                    code: 'topics' 
                 } 
             ] 
         }
@@ -79,15 +79,15 @@ export class SharedData {
         return this.bookCategories;
     }
 
-    private _bookTopicsProcessed = false;
-    public get BookTopics(): TopicEntity[] {
+    private _topicsProcessed = false;
+    public get Topics(): TopicEntity[] {
         // sort them by name
-        if (!this._bookTopicsProcessed) {
-            this.bookTopics.sort((a: TopicEntity, b: TopicEntity) => {
+        if (!this._topicsProcessed) {
+            this.topics.sort((a: TopicEntity, b: TopicEntity) => {
                 return a.Name.localeCompare(b.Name);
             });
-            this._bookTopicsProcessed = true;
+            this._topicsProcessed = true;
         }
-        return this.bookCategories;
+        return this.topics;
     }
 }

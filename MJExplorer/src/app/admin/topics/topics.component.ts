@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Metadata } from '@memberjunction/core';
+import { Metadata, RunView } from '@memberjunction/core';
 import { MJAuthBase } from '@memberjunction/ng-auth-services';
 import { AddEvent, CancelEvent, EditEvent, GridComponent, RemoveEvent, SaveEvent } from '@progress/kendo-angular-grid';
-import { State } from '@progress/kendo-data-query';
 import { TopicEntity } from 'mj_generatedentities';
-import { BookTopicDetailsComponent } from 'src/app/generated/Entities/BookTopic/sections/details.component';
 import { SharedData } from 'src/app/utils/shared-data';
 import { SharedService } from 'src/app/utils/shared-service';
 
@@ -39,7 +37,13 @@ export class TopicsComponent {
       if (this.loaded) return;
 
       // get the data from the database on our list of roles
-      this.bookTopics = this.sharedData.BookTopics.sort((a: TopicEntity, b: TopicEntity) => { return a.Name > b.Name ? 1 : -1 });
+      const rv = new RunView();
+      const result = await rv.RunView({
+        EntityName: 'Topics'
+      });
+      if(result.Success) {
+        this.bookTopics = result.Results.sort((a: TopicEntity, b: TopicEntity) => { return a.ID < b.ID ? 1 : -1 });
+      }
       this.loaded = true;
     }
     catch (e) {
@@ -91,16 +95,20 @@ export class TopicsComponent {
     this.topicEntity.Name = Name;
     this.topicEntity.Description = Description;
     await this.topicEntity.Save();
+    this.loaded = false;
+    this.loadData();
     sender.closeRow(rowIndex);
   }
 
   public async removeHandler(args: RemoveEvent) {
-    console.log(args);
-    const { ID, Name, Description} = args.dataItem;
+    const { ID } = args.dataItem;
     this.topicEntity = <TopicEntity>await this.md.GetEntityObject('Topics');
     await this.topicEntity.Load(ID);
     if(!await this.topicEntity.Delete()){
       this.sharedService.DisplayNotification('Error deleting Topic', 'error');
+    } else {
+      this.loaded = false;
+      this.loadData();
     }
   }
 
