@@ -23,17 +23,6 @@ export class SharedService {
         this._loggedIn = isAuthenticated;
       });
       SharedService._instance = this; // set the instance since we're the first instance of this class being instantiated
-
-        
-      // Output Size of IndexedDB when we first start up
-      // (async () => {
-      //   try {
-      //     const size: number = await SharedService.calculateIndexedDBSize("MJ_Metadata");
-      //     console.log(`Total size of IndexedDB is ${size} bytes`);
-      //   } catch (error) {
-      //     console.error("An error occurred:", error);
-      //   }
-      // })();
     }    
   }
 

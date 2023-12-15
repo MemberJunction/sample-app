@@ -17,6 +17,7 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { AdminModule } from './admin/admin.module';
 import { TopicsComponent } from './admin/topics/topics.component';
 import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 const routes: Routes = [
@@ -44,9 +45,13 @@ const routes: Routes = [
     component: CartComponent
   },
   {
+    path: 'profile',
+    component: ProfileComponent
+  },
+  {
     path: 'admin',
     loadChildren: () => AdminModule,
-},
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '**', redirectTo: 'home' 

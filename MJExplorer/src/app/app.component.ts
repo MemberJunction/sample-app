@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
           this.HasError = true;
           this.ErrorMessage = `You don't have access to the application, contact your system administrator.`
           throw this.ErrorMessage;
+
         } else {
           const setupStart = new Date();
           await this.sharedService.doSetup();
@@ -60,7 +61,9 @@ export class AppComponent implements OnInit {
           const setupElapsed = (setupEnd.getTime() - setupStart.getTime()) / 1000;
           console.log(`setupService.doSetup() took ${setupElapsed} seconds`);
         }
+        
         localStorage.removeItem('jwt-retry-ts');
+
       } catch (err) {
         const retryKey = 'auth-retry-dt';
         const lastRetryDateTime = localStorage.getItem(retryKey);

@@ -59,6 +59,8 @@ import { CategoryComponent } from './category/category.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { AdminModule } from './admin/admin.module';
 import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SingleOrderComponent } from './profile/single-order/single-order.component';
 
 LoadResourceWrappers();
 
@@ -82,7 +84,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     SearchBookComponent,
     CategoryComponent,
     BookDetailComponent,
-    CartComponent
+    CartComponent,
+    ProfileComponent,
+    SingleOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -151,6 +155,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalGuard,
     MsalBroadcastService,
     { provide: MJAuthBase, useClass: environment.AUTH_TYPE === 'auth0' ? MJAuth0Provider : MJMSALProvider },],
-  bootstrap: [AppComponent, MsalRedirectComponent]
+  bootstrap: [AppComponent, MsalRedirectComponent],
+  exports: [SingleOrderComponent]
 })
 export class AppModule { }

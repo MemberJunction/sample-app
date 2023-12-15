@@ -1,0 +1,121 @@
+.org-wrap {
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.org-body {
+    width: 100%;
+}
+
+.org-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-header {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: lightskyblue;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; 
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EBEBEB;
+    
+}
+
+.info-label {
+    color: #424242;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 3px;
+}
+
+.info-value {
+    color: #8F8F8F;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+::ng-deep .org-body .k-tabstrip-items .k-item.k-active {
+    color: var(--Secondary-Green, #6FC067);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+::ng-deep .org-body .k-tabstrip-items .k-item {
+    color: var(--Primary-Green, #28533F);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+::ng-deep .org-body .k-tabstrip .k-content {
+    border-radius: 0 0 25px 25px;
+    padding: 25px;
+    border: 1px solid #E9EDEB;
+}
+
+::ng-deep .org-body .k-tabstrip-items .k-item:focus {
+    box-shadow: none;
+}
+
+.org-body > div {
+    padding: 10px;
+}
+
+.org-info {
+    display: flex;
+    flex-direction: column;
+}
+  
+.text-right {
+    text-align: right;
+}
+  .tab-main-wrap {
+    padding: 50px 0;
+  }
+  .tab-main-wrap h2 {
+    color: var(--Primary-Green, #28533F);
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 37.24px;
+    margin-bottom: 25px;
+    margin-top: 0;
+  }
+  @media (max-width: 767px) {
+    ::ng-deep .org-body .k-tabstrip .k-content {
+        padding: 20px;  
+    }
+    .org-wrap {
+        margin-right: 0;
+    }
+    .tab-main-wrap {
+        padding: 25px 16px;
+    }
+    .tab-main-wrap h2 {
+        color: var(--Primary-Green, #28533F);
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 30px;
+    }
+    ::ng-deep .org-body .k-tabstrip-items .k-item.k-active .k-link,
+    ::ng-deep .org-body .k-tabstrip-items .k-item .k-link {
+        padding: 7px 10px;
+    }
+    .org-compensation p {
+        align-items: flex-start;
+    }
+  }
