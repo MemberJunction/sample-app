@@ -30,13 +30,6 @@
                         <p>View Books in your cart for purchase</p>
                     </div>
                 </a>
-                <a routerLink="/admin">
-                    <div class="kendo-card">
-                        <img src="../../assets/revenue.svg" alt="revenue" />
-                        <h3>Admin Dashboard</h3>
-                        <p>Manage books, Topics, Categories, etc.</p>
-                    </div>
-                </a>
 
                 <a routerLink="/profile">
                     <div class="kendo-card">
@@ -45,7 +38,17 @@
                         <p>Manage Personal, Business, Topic details</p>
                     </div>
                 </a>
-                
+
+                <ng-container *ngIf="isAdmin">
+                    <a routerLink="/admin">
+                        <div class="kendo-card">
+                            <img src="../../assets/revenue.svg" alt="revenue" />
+                            <h3>Admin Dashboard</h3>
+                            <p>Manage books, Topics, Categories, etc.</p>
+                        </div>
+                    </a>
+                </ng-container>
+
             </div>
         </div>
 

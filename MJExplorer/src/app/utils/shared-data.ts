@@ -11,6 +11,7 @@ export class SharedData {
 
     protected bookCategories: BookCategoryEntity[] = []
     protected topics: TopicEntity[] = []
+    protected bookTopics: BookTopicEntity[] = []
     private static _instance: SharedData;
     private _keyPrefix = "__green_gopher_";
     private _updatedDateKeyBase = this._keyPrefix + "updatedDate";
@@ -31,6 +32,15 @@ export class SharedData {
                 {
                     entityName: 'Topics', 
                     code: 'topics' 
+                } 
+            ] 
+        },
+        { 
+            datasetName: 'BookTopics', 
+            entities: [ 
+                {
+                    entityName: 'Book Topics', 
+                    code: 'bookTopics' 
                 } 
             ] 
         }
@@ -58,7 +68,8 @@ export class SharedData {
             for (let j = 0; j < dataset.entities.length; j++) {
                 const item = dataset.entities[j];
                 const result = await rv.RunView({
-                    EntityName: item.entityName
+                    EntityName: item.entityName,
+                    IgnoreMaxRows: true,
                 });
                 if(result.Success) {
                     this[item.code] = result.Results;
@@ -89,5 +100,17 @@ export class SharedData {
             this._topicsProcessed = true;
         }
         return this.topics;
+    }
+
+    private _bookTopicsProcessed = false;
+    public get BookTopics(): BookTopicEntity[] {
+        // sort them by name
+        if (!this._bookTopicsProcessed) {
+            this.bookTopics.sort((a: BookTopicEntity, b: BookTopicEntity) => {
+                return a.Topic.localeCompare(b.Topic);
+            });
+            this._bookTopicsProcessed = true;
+        }
+        return this.bookTopics;
     }
 }

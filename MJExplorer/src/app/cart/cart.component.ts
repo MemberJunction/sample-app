@@ -29,15 +29,15 @@ export class CartComponent {
 
   async checkout() {
     const md = new Metadata();
-    if (!md.CurrentUser.LinkedEntityID) {
+    if (!md.CurrentUser.LinkedEntityRecordID) {
       this.router.navigate(['/cart']);
     } else {
       const purchaseEntity = <PurchaseEntity>await md.GetEntityObject('Purchases');
       purchaseEntity.NewRecord();
       purchaseEntity.Date = new Date();
-      purchaseEntity.PersonID = md.CurrentUser.LinkedEntityID;
+      purchaseEntity.PersonID = md.CurrentUser.LinkedEntityRecordID;
       purchaseEntity.GrandTotal = this.grandTotal;
-      purchaseEntity.Save();
+      await purchaseEntity.Save();
       for (let i = 0; i < this.cartItems.length; i++) {
         const book: Book = this.cartItems[i];
         const purchaseDetailEntity = <PurchaseDetailEntity>await md.GetEntityObject('Purchase Details')

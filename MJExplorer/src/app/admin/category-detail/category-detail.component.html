@@ -1,21 +1,21 @@
-<div *ngIf="!loaded">
+<div *ngIf="loading">
     <!-- <kendo-loader type="infinite-spinner" themeColor="primary" size="large"></kendo-loader> -->
     <div class="gg-loader">
         <img src="../../assets/loader.gif" />
     </div>
 </div>
-<div *ngIf="loaded && topic" class="role-wrap">
+<div *ngIf="!loading && category" class="role-wrap">
     <section class="tab-main-wrap">
         <div class="container-large">
             <div class="editorial-main-wrapper">
                 <div class="role-title">
-                    <h3>Books by Topic: {{topic.Name}}</h3>
+                    <h3>Books by Category: {{category.Name}}</h3>
                 </div>
                 <div class="layout-wrapper filter-close">
                     <div class="grid-wrap">
 
                         <kendo-grid
-                            [kendoGridBinding]='booksByTopic'
+                            [kendoGridBinding]='booksByCategory'
                             [pageSize]="10"
                             [pageable]="true"
                             [sortable]="true"
@@ -28,28 +28,9 @@
                             [navigable]="true"
                             >
                             <ng-template kendoGridToolbarTemplate>
-                                <button kendoGridAddCommand>Add new book</button>
+                                <button kendoGridAddCommand>Add new Book</button>
                             </ng-template>
                             <kendo-grid-column field="Name" title="Name"></kendo-grid-column>
-                            <kendo-grid-column field="CategoryID" title="Category">
-                                <ng-template
-                                  kendoGridEditTemplate
-                                  let-dataItem="dataItem"
-                                  let-formGroup="formGroup"
-                                >
-                                  <kendo-dropdownlist
-                                    [data]="categories"
-                                    textField="Name"
-                                    valueField="ID"
-                                    [valuePrimitive]="true"
-                                    [formControl]="formGroup.get('BookCategoryID')"
-                                  >
-                                  </kendo-dropdownlist>
-                                </ng-template>
-                                <ng-template kendoGridCellTemplate let-dataItem>
-                                  {{ dataItem.BookCategory }}
-                                </ng-template>
-                              </kendo-grid-column>
                             <kendo-grid-column field="Pages" title="Pages" editor="numeric"></kendo-grid-column>
                             <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
                             <kendo-grid-command-column title="Action" [width]="220">

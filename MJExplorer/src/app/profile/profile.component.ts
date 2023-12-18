@@ -43,10 +43,8 @@ export class ProfileComponent implements OnInit {
     this.sharedService.setupComplete$.subscribe(setupComplete => {
       if (setupComplete) {
         this.loadData();
-        this.loadPurchases();
       }
     });
-
   }
 
   async loadData() {
@@ -58,13 +56,13 @@ export class ProfileComponent implements OnInit {
     if (this.currentUser.LinkedEntityRecordID && this.currentUser.LinkedEntityID) {
       this.topicDisabled = false;
       await this.userData.Load(this.currentUser.LinkedEntityRecordID);
+      this.loadPurchases();
       this.personForm.patchValue({
         FirstName: this.userData.FirstName,
         LastName: this.userData.LastName,
         Email: this.userData.Email,
         Phone: this.userData.Phone,
       });
-
     } else {
       this.personForm.patchValue({
         Email: this.currentUser.Email,
@@ -77,10 +75,8 @@ export class ProfileComponent implements OnInit {
   async loadOrganizationDetails() {
     const md = new Metadata();
     this.organizationEntity = <OrganizationEntity>await md.GetEntityObject('Organizations');
-    if (this.currentUser.ID) { // need to change it to userData
-      // TODO remove this after testing
-      await this.organizationEntity.Load(1);
-      // await this.organizationEntity.Load(this.currentUser.LinkedEntityRecordID);
+    if (this.userData.OrganizationID) {
+      await this.organizationEntity.Load(this.userData.OrganizationID);
       this.businessForm.patchValue({
         Name: this.organizationEntity.Name,
         Address: this.organizationEntity.Address,
@@ -101,7 +97,7 @@ export class ProfileComponent implements OnInit {
     const rv = new RunView();
     const result = await rv.RunView({
       EntityName: 'Purchases',
-      ExtraFilter: `PersonID=${673}`
+      ExtraFilter: `PersonID=${this.userData.ID}`
     });
     if (result.Success) {
       this.ordersLoading = false;
@@ -116,7 +112,6 @@ export class ProfileComponent implements OnInit {
       this.userData.LastName = LastName;
       this.userData.Email = Email;
       this.userData.Phone = Phone;
-      // this.userData.UpdatedAt = new Date();
       await this.userData.Save();
       if (!this.currentUser.LinkedEntityRecordID || !this.currentUser.LinkedEntityID) {
         this.currentUser.LinkedEntityRecordID = this.userData.ID;
@@ -139,7 +134,7 @@ export class ProfileComponent implements OnInit {
       this.organizationEntity.Phone = Phone;
       if (await this.organizationEntity.Save()) {
         this.sharedService.DisplayNotification("Save Successful!", 'success');
-        if (this.userData.ID) {
+        if (this.userData.ID && !this.userData.OrganizationID) {
           this.userData.OrganizationID = this.organizationEntity.ID;
           await this.userData.Save();
         }
