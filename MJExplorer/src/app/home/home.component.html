@@ -7,7 +7,7 @@
             <div class="card-wrapper">
                 <a routerLink="/select-category">
                     <div class="kendo-card">
-                        <img src="../../assets/role.svg" alt="revenue" />
+                         <div class="img-icon"><img src="../../assets/role.svg" alt="revenue" /></div>
                         <h3>Books by Category</h3>
                         <p>
                             Explore Categories like Tech, Literature etc.
@@ -16,7 +16,7 @@
                 </a>
                 <a routerLink="/search-book">
                     <div class="kendo-card">
-                        <img src="../../assets/orgs.svg" alt="orgs" />
+                         <div class="img-icon"><img src="../../assets/orgs.svg" alt="orgs" /></div>
                         <h3>Search Books</h3>
                         <p>
                             Search books by Name, Topic, or Category.
@@ -25,7 +25,7 @@
                 </a>
                 <a routerLink="/cart">
                     <div class="kendo-card">
-                        <img src="../../assets/revenue.svg" alt="revenue" />
+                         <div class="img-icon"><img src="../../assets/revenue.svg" alt="revenue" /></div>
                         <h3>Cart</h3>
                         <p>View Books in your cart for purchase</p>
                     </div>
@@ -33,7 +33,7 @@
 
                 <a routerLink="/profile">
                     <div class="kendo-card">
-                        <img src="../../assets/revenue.svg" alt="revenue" />
+                         <div class="img-icon"><img src="../../assets/revenue.svg" alt="revenue" /></div>
                         <h3>Profile</h3>
                         <p>Manage Personal, Business, Topic details</p>
                     </div>
@@ -42,7 +42,9 @@
                 <ng-container *ngIf="isAdmin">
                     <a routerLink="/admin">
                         <div class="kendo-card">
+                           <div class="img-icon">
                             <img src="../../assets/revenue.svg" alt="revenue" />
+                           </div>
                             <h3>Admin Dashboard</h3>
                             <p>Manage books, Topics, Categories, etc.</p>
                         </div>

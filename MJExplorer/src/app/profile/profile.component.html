@@ -15,7 +15,8 @@
   <section class="tab-main-wrap">
     <div class="container-large">
       <h2>Manage Profile</h2>
-      <h3 *ngIf="topicDisabled">Please add your personal details to purchase books, add your favourite topics, view orders etc.</h3>
+      <h3 *ngIf="topicDisabled">Please add your personal details to purchase books, add your favourite topics, view
+        orders etc.</h3>
       <div class="org-body k-mt-4">
         <kendo-tabstrip>
           <kendo-tabstrip-tab title="Personal" [selected]="true">
@@ -129,7 +130,28 @@
           </kendo-tabstrip-tab>
           <kendo-tabstrip-tab title="Personal Topics">
             <ng-template kendoTabContent>
-              <div class="content">Topics
+              <div class="content">
+                <h4>Topics</h4>
+                <div class="content-wrapper">
+                  <div *ngFor="let personTopic of displayData" class="topic-box">
+                    <input type="checkbox" kendoCheckBox [(ngModel)]="personTopic.checked" />
+                    <h5>{{personTopic.Name}}</h5>
+                    <div *ngIf="personTopic.checked" class="example-config">
+                      <kendo-slider 
+                        id="value" 
+                        [min]="0" 
+                        [showButtons]="false" 
+                        [max]="100"
+                        [title]="title"
+                        [(ngModel)]="personTopic.InterestLevel">
+                      </kendo-slider>
+                      {{personTopic.InterestLevel}}
+                    </div>
+                  </div>
+                </div>
+                <kendo-button name="save" [primary]="true" [disabled]="!displayData.length" (click)="onPersonalTopicsSave()">
+                        <span class="k-icon k-i-check"></span>
+                        Save</kendo-button>
               </div>
             </ng-template>
           </kendo-tabstrip-tab>
@@ -143,10 +165,10 @@
                         {{dataItem.Date | date: 'dd/MM/yyyy'}}
                       </ng-template>
                     </kendo-grid-column>
-                  <kendo-grid-column field="GrandTotal" title="Total" format="c"></kendo-grid-column>
-                  <div *kendoGridDetailTemplate="let dataItem">
-                    <app-single-order [order]="dataItem"></app-single-order>
-                  </div>
+                    <kendo-grid-column field="GrandTotal" title="Total" format="c"></kendo-grid-column>
+                    <div *kendoGridDetailTemplate="let dataItem">
+                      <app-single-order [order]="dataItem"></app-single-order>
+                    </div>
                   </kendo-grid>
                 </div>
               </div>

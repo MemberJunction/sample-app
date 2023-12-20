@@ -21,9 +21,9 @@ export class CartComponent {
     this.cartService.cartItems$.subscribe((items) => {
       this.cartItems = items;
       this.calculateGrandTotal();
-      if (!items.length) {
-        this.router.navigate(['/home']);
-      }
+      // if (!items.length) {
+      //   this.router.navigate(['/home']);
+      // }
     });
   }
 

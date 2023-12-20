@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../utils/shared-service';
-import { BookEntity, TopicEntity } from 'mj_generatedentities';
+import { BookEntity, BookTopicEntity, TopicEntity } from 'mj_generatedentities';
 import { Metadata, RunView } from '@memberjunction/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../utils/cart.service';
@@ -26,11 +26,12 @@ export class BookDetailComponent {
   public quantity: number = 1;
   public isAdminView: boolean = false;
   public isAdmin: boolean = false;
-  public bookTopics: string = '';
+  public bookTopics: any[] = [];
   public bookForm: FormGroup = new FormGroup({});
   public amount: number = 24;
   public topics: any = [];
   public categories: any = [];
+  public initialBookTopics: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -66,8 +67,7 @@ export class BookDetailComponent {
         if (admin !== -1) {
           this.isAdmin = true;
           this.isAdminView = true;
-        } 
-          
+        }
       }
     });
 
@@ -80,7 +80,7 @@ export class BookDetailComponent {
     this.bookForm.patchValue({
       Name: this.bookDetail.Name,
       Pages: this.bookDetail.Pages,
-      BookCategoryID: this.bookDetail.Pages,
+      BookCategoryID: this.bookDetail.BookCategoryID,
       Amount: this.amount,
       Topics: [],
       Description: this.bookDetail.Description
@@ -92,8 +92,16 @@ export class BookDetailComponent {
     });
     if (result.Success && result.Results.length) {
       const results: any = result.Results;
-      this.bookTopics = results.map((topic: TopicEntity) => topic.Name).join(', ');
-      this.bookForm.patchValue({ Topics: results.map((topic: TopicEntity) => topic.ID) });
+      this.bookTopics = results;
+      this.bookForm.patchValue({ Topics: results });
+    }
+    const topicResult = await rv.RunView({
+      EntityName: 'Book Topics',
+      ExtraFilter: `BookID=${this.bookId}`
+    });
+    if (topicResult.Success && topicResult.Results.length) {
+      const results: any = topicResult.Results;
+      this.initialBookTopics = results;
     }
   }
 
@@ -109,6 +117,44 @@ export class BookDetailComponent {
     this.router.navigate(['/cart']);
   }
 
+  async saveBookDetails() {
+    if (this.bookForm.valid) {
+      const md = new Metadata();
+      const { Name, Pages, Description, BookCategoryID, Topics, Amount } = this.bookForm.value;
+      this.amount = Amount;
+      this.bookDetail.Name = Name;
+      this.bookDetail.Pages = Pages;
+      this.bookDetail.Description = Description;
+      this.bookDetail.BookCategoryID = BookCategoryID;
+      this.bookDetail.Name = Name;
+      const uncommonTopics: any[] = this.bookTopics
+        .filter((topic1: TopicEntity) => !Topics.some((topic2: TopicEntity) => topic2.ID === topic1.ID))
+        .map((topic1: TopicEntity) => ({ ...topic1, isAdded: false }))
+        .concat(
+          Topics
+            .filter((topic2: TopicEntity) => !this.bookTopics.some((topic1: TopicEntity) => topic1.ID === topic2.ID))
+            .map((topic2: TopicEntity) => ({ ...topic2, isAdded: true }))
+        );
+      this.bookTopics = Topics;
+      const bookTopicEntity = <BookTopicEntity>await md.GetEntityObject('Book Topics');
+      for (let i = 0; i < uncommonTopics.length; i++) {
+        const topic = uncommonTopics[i];
+        if (topic.isAdded) {
+          bookTopicEntity.NewRecord();
+          bookTopicEntity.BookID = this.bookDetail.ID;
+          bookTopicEntity.TopicID = topic.ID;
+          await bookTopicEntity.Save();
+        } else {
+          const bookTopic = this.initialBookTopics.find((item) => item.TopicID === topic.ID);
+          await bookTopicEntity.Load(bookTopic.ID);
+          await bookTopicEntity.Delete();
+        }
+      }
+      await this.bookDetail.Save();
+      this.sharedService.DisplayNotification('Book Details have been Saved!', 'success');
+    }
+  }
+
   increase() {
     if (this.quantity < 100) {
       this.quantity += 1;
@@ -119,5 +165,9 @@ export class BookDetailComponent {
     if (this.quantity > 1) {
       this.quantity -= 1;
     }
+  }
+
+  getBookTopics(): string {
+    return this.bookTopics.map((topic: TopicEntity) => topic.Name).join(', ')
   }
 }

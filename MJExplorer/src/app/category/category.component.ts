@@ -74,10 +74,7 @@ export class CategoryComponent {
 
   onGridRowClick(e: any) {
     if (this.category) {
-      const qp = {
-        categoryId: this.category.ID
-      };
-      this.router.navigate(['book-detail', e.dataItem.ID], { queryParams: qp });
+      this.router.navigate(['book-detail', e.dataItem.ID]);
     }
   }
 

@@ -83,8 +83,9 @@
 }
 .details-author {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    align-items: flex-start;
 }
 .author-name {
     display: flex;
@@ -102,6 +103,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 5px;
+    width: 100%;
 }
 .author-name .content h5, .box-data h5 {
     color: #6FC067;
@@ -110,19 +112,25 @@
     margin: 0;
     font-weight: 400;
 }
+.author-name h6 .k-dropdownlist {
+    border-color: #ced4da;
+    background: transparent;
+}
 .author-name .content h6, .box-data h6 {
     color: #222;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     margin: 0;
+    width: 100%;
 }
 .pricing-section {
     padding: 16px 0;
     border-top: 2px dashed #dee2e6;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+    margin-top: 24px;
 }
 .pricing-section .price {
     display: flex;
@@ -135,9 +143,15 @@
     gap: 16px;
 }
 .pricing-section .price h2 {
-    font-size: 45px;
-    line-height: 58px;
+    font-size: 40px;
+    line-height: 48px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.price h2 .k-textbox {
+    font-size: 18px;
 }
 
 .pricing-section .price span {
@@ -215,7 +229,52 @@
     font-size: 22px;
 }
 
+.book-details-view {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.book-form-store, .book-view-cart {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+}
+.desc-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+   
+.breadcrumbWrapper {
+    border-bottom: 1px solid #e9edeb;
+    background: #e9edeb;
+}
 
+.breadcrumb {
+    padding: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 48px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.active {
+    color: var(--Secondary-Green, #6fc067);
+    cursor: pointer;
+
+}
+
+.breadcrumb .k-icon {
+    color: #28533f;
+}
+
+.back-sec {
+    display: none;
+}
 @media screen and (min-width: 768px) and (max-width: 991px) {
     .book-details-wrapper {
         flex-direction: column;

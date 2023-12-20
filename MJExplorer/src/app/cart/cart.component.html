@@ -1,28 +1,61 @@
-<section class="cart-store-container">
-  <div class="cart-details-wrapper">
-    <h1>Your Shopping Cart</h1>
-    <div class="cart-container">
-      <div class="product" *ngFor="let book of cartItems">
-        <img src="https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt="Product 1" />
-        <div class="product-info">
-          <h2>{{book.Name}}</h2>
-          <p>{{book.Description}}</p>
-          <p class="price">${{calculateTotal(book)}}</p>
-          <div class="btn-grp">
-            <button (click)="decreaseQuantity(book)">-</button>
-            <h5>{{book.Quantity}}</h5>
-            <button (click)="increaseQuantity(book)">+</button>
-          </div>
-          <button class="remove-button" (click)="removeItem(book)">Remove</button>
-        </div>
+<div>
+  <div class="breadcrumbWrapper">
+    <div class="container-large">
+      <div class="breadcrumb">
+        <a routerLink="/">
+          <kendo-icon name="home"></kendo-icon>
+        </a>
+        <kendo-icon name="arrow-chevron-right"></kendo-icon> <a class="active">Shopping Cart</a>
+  
       </div>
-      <div class="total">
-        <p>Total: ${{grandTotal}}</p>
-        <kendo-button [primary]="true" routerLink="/home" class="k-mr-4">
-          Continue Shopping</kendo-button>
-        <button class="checkout-button" (click)="checkout()">Proceed to Checkout</button>
+      <div class="back-sec">
+        <a routerLink="/">
+        <kendo-icon name="arrow-chevron-left"></kendo-icon>
+        Back
+        </a>
       </div>
     </div>
   </div>
-</section>
+  <section class="cart-store-container">
+    <div class="cart-details-wrapper">
+      <h1>Your Shopping Cart</h1>
+      <div class="content-card-body">
+        <div class="cart-container">
+          <div class="product" *ngFor="let book of cartItems">
+            <img src="https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="Product 1" />
+            <div class="product-info">
+              <h2>{{book.Name}}</h2>
+              <p>{{book.Description}}</p>
+              <p class="price">${{calculateTotal(book)}}</p>
+             <div class="book-btn-group">
+               <div class="btn-grp">
+                 <button (click)="decreaseQuantity(book)">-</button>
+                 <h5>{{book.Quantity}}</h5>
+                 <button (click)="increaseQuantity(book)">+</button>
+               </div>
+               <button class="remove-button" (click)="removeItem(book)">Remove</button>
+             </div>
+            </div>
+          </div>
+          <div class="no-data" *ngIf="!this.cartItems.length">
+            <h6>Shopping cart</h6>
+            <div class="icon">
+              <svg fill="#000000" width="100px" height="100px" viewBox="0 0 24 24" id="cart" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M18.5,20.5A1.5,1.5,0,1,1,17,19,1.5,1.5,0,0,1,18.5,20.5ZM11,19a1.5,1.5,0,1,0,1.5,1.5A1.5,1.5,0,0,0,11,19Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M21.79,6.38A1,1,0,0,0,21,6H7.48L7.12,3.69A2,2,0,0,0,5.14,2H3A1,1,0,0,0,3,4H5.14L7,16.15A1,1,0,0,0,8,17h.09l11-1a1,1,0,0,0,.88-.76l2-8A1,1,0,0,0,21.79,6.38Z" style="fill: rgb(0, 0, 0);"></path></svg>
+            </div>
+            <h5>Your Cart is currently Empty</h5>
+            <!-- <button class="checkout-button" >Return to Shop</button> -->
+          </div>
+        </div>
+        <div class="total">
+          <button class="checkout-button" [ngClass]="{'k-disabled': !this.cartItems.length}" [disabled]="!this.cartItems.length" (click)="checkout()">Proceed to Checkout</button>
+          <h6>Order Subtotal</h6>
+          <h4>Total: ${{grandTotal}}</h4>
+          <kendo-button [primary]="true" routerLink="/home">
+            Continue Shopping</kendo-button>
+  
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

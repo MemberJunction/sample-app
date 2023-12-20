@@ -95,6 +95,29 @@
     margin-bottom: 25px;
     margin-top: 0;
   }
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .content-wrapper .topic-box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .content-wrapper .topic-box h5 { 
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    margin: 0;
+    color: #28533F;
+  }
+  ::ng-deep .topic-box .example-config .k-slider .k-slider-wrap .k-slider-track .k-slider-selection {
+    background: #6FC067;
+  }
+  ::ng-deep .topic-box .example-config .k-slider .k-slider-wrap .k-slider-track .k-draghandle:focus, .k-slider .k-draghandle.k-focus {
+    box-shadow: 0 0 0 3px rgb(111 192 103);
+  }
   @media (max-width: 767px) {
     ::ng-deep .org-body .k-tabstrip .k-content {
         padding: 20px;  

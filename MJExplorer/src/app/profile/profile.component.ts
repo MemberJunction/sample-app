@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../utils/shared-service';
-import { OrganizationEntity, PersonEntity, PurchaseEntity } from 'mj_generatedentities';
+import { OrganizationEntity, PersonEntity, PersonTopicEntity, PurchaseEntity, TopicEntity } from 'mj_generatedentities';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Metadata, RunView } from '@memberjunction/core';
 import { UserEntity } from '@memberjunction/core-entities';
+import { SharedData } from '../utils/shared-data';
 
 @Component({
   selector: 'app-profile',
@@ -19,8 +20,12 @@ export class ProfileComponent implements OnInit {
   public businessForm: FormGroup = new FormGroup({});
   public purchases: PurchaseEntity[] = [];
   public ordersLoading: boolean = false;
+  public value = 10;
+  public topics: TopicEntity[] = [];
+  public personTopics: PersonTopicEntity[] = [];
+  public displayData: any[] = [];
 
-  constructor(private sharedService: SharedService, private formBuilder: FormBuilder) { }
+  constructor(private sharedService: SharedService, private formBuilder: FormBuilder, private sharedData: SharedData) { }
 
   async ngOnInit() {
     this.personForm = this.formBuilder.group({
@@ -43,6 +48,7 @@ export class ProfileComponent implements OnInit {
     this.sharedService.setupComplete$.subscribe(setupComplete => {
       if (setupComplete) {
         this.loadData();
+        this.topics = this.sharedData.Topics;
       }
     });
   }
@@ -70,6 +76,7 @@ export class ProfileComponent implements OnInit {
       this.userData.NewRecord();
     }
     this.loadOrganizationDetails();
+    this.loadPersonTopics();
   }
 
   async loadOrganizationDetails() {
@@ -89,6 +96,31 @@ export class ProfileComponent implements OnInit {
       });
     } else {
       this.organizationEntity.NewRecord();
+    }
+  }
+
+  async loadPersonTopics() {
+    const md = new Metadata();
+    const rv = new RunView();
+    const result = await rv.RunView({
+      EntityName: 'Person Topics',
+      ExtraFilter: `PersonID=${1}` // md.CurrentUser.LinkedEntityRecordID
+    });
+    if (result.Success) {
+      this.personTopics = result.Results;
+      this.displayData = this.topics.map(topic => {
+        const matchingPersonTopic = this.personTopics.find(personTopic => personTopic.TopicID === topic.ID);
+
+        return {
+          PersonTopicID: matchingPersonTopic ? matchingPersonTopic.ID : null,
+          InterestLevel: matchingPersonTopic ? matchingPersonTopic.InterestLevel : 50,
+          TopicID: topic.ID,
+          Name: topic.Name,
+          checked: matchingPersonTopic ? true : false
+        };
+      });
+      const a = this.personTopics;
+      const b = this.displayData;
     }
   }
 
@@ -141,5 +173,53 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
+
+  async onPersonalTopicsSave() {
+    const md = new Metadata();
+    const finalPayload = this.displayData.map(secondItem => {
+      const firstItem = this.personTopics.find(item => item.ID === secondItem.PersonTopicID);
+
+      if (secondItem.PersonTopicID === null && secondItem.checked === true) {
+        return {
+          ...secondItem,
+          isAdded: true
+        };
+      } else if (firstItem && secondItem.PersonTopicID === firstItem.ID && secondItem.checked) {
+        return {
+          ...secondItem,
+          isModified: true
+        };
+      } else if (firstItem && secondItem.PersonTopicID === firstItem.ID && !secondItem.checked) {
+        return {
+          ...secondItem,
+          checked: false,
+          isRemoved: true
+        };
+      }
+      return null;
+    }).filter(item => item !== null);
+    const personTopicEntity = <PersonTopicEntity>await md.GetEntityObject('Person Topics');
+    for (let i = 0; i < finalPayload.length; i++) {
+      const topic = finalPayload[i];
+      if (topic.isAdded) {
+        personTopicEntity.NewRecord();
+        personTopicEntity.PersonID = this.userData.ID;
+        personTopicEntity.TopicID = topic.TopicID;
+        personTopicEntity.InterestLevel = topic.InterestLevel;
+        await personTopicEntity.Save();
+      } else if (topic.isModified) {
+        await personTopicEntity.Load(topic.PersonTopicID);
+        personTopicEntity.InterestLevel = topic.InterestLevel;
+        await personTopicEntity.Save();
+      } else if (topic.isRemoved) {
+        await personTopicEntity.Load(topic.PersonTopicID);
+        await personTopicEntity.Delete();
+      }
+    }
+  }
+
+  public title = (value: number): string => {
+    return value === 0 || value === 100 ? value.toString() : '';
+  };
 
 }
