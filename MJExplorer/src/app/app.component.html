@@ -1,7 +1,4 @@
 <div class="app-wrap">
-  <div class="app-header">
-      <app-header></app-header>
-  </div>
   <div class="app-body">
       <div *ngIf="authBase.authenticated; else loggedOut">
           <router-outlet></router-outlet>

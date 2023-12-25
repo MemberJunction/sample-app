@@ -25,6 +25,10 @@ import { TopicEntity } from 'mj_generatedentities';
         <div class="record-form-row">
             <label class="fieldLabel">Updated At</label>
             <span >{{FormatValue('UpdatedAt', 0)}}</span>   
+        </div>               
+        <div class="record-form-row">
+            <label class="fieldLabel">Display Rank</label>
+            <kendo-numerictextbox [(value)]="record.DisplayRank" ></kendo-numerictextbox>   
         </div> 
     </div>
     <div *ngIf="!this.EditMode" class="record-form">
@@ -44,6 +48,10 @@ import { TopicEntity } from 'mj_generatedentities';
         <div class="record-form-row">
             <label class="fieldLabel">Updated At</label>
             <span >{{FormatValue('UpdatedAt', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Display Rank</label>
+            <span >{{FormatValue('DisplayRank', 0)}}</span>
         </div>
     </div>
 </div>

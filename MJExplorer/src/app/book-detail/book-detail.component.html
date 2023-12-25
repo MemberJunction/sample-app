@@ -2,51 +2,67 @@
   <section class="book-store-container">
     <div class="book-details-wrapper" *ngIf="bookDetail">
       <div class="image-wrapper">
-        <img src="https://images.pexels.com/photos/256450/pexels-photo-256450.jpeg?auto=compress&cs=tinysrgb&w=600"
-          alt="" />
+        <img src="../../assets/book1.png" alt="" />
       </div>
       <div class="information-book-details">
-       <div class="book-details-view">
-         <kendo-label *ngIf="isAdmin" [text]="isAdminView ? 'Admin View' : 'User View'">:
-           <kendo-switch [(ngModel)]="isAdminView"></kendo-switch>
-         </kendo-label>
-       </div>
+        <div class="book-details-view">
+          <kendo-label *ngIf="isAdmin" [text]="'Admin View'">:
+            <kendo-switch [(ngModel)]="isAdminView"></kendo-switch>
+          </kendo-label>
+        </div>
         <div class="book-view-cart" *ngIf="!isAdminView">
-         <div class="desc-wrapper">
-           <h3>{{bookDetail.Name}}</h3>
-   
-           <p>
-             {{bookDetail.Description}}
-           </p>
-           <div class="details-author">
-             <div class="author-name">
-               <div class="content">
-                 <h5>Category</h5>
-                 <h6>{{bookDetail.BookCategory}}</h6>
-               </div>
-             </div>
-             <div class="box-data">
-               <h5>Topics</h5>
-               <div>{{getBookTopics()}}</div>
-             </div>
-             <div class="box-data">
-              <h5>Pages</h5>
-              <div>{{bookDetail.Pages}}</div>
-            </div>
-           </div>
-         </div>
-          <div class="pricing-section">
+          <div class="desc-wrapper">
+            <h3>{{ bookDetail.Name }}</h3>
+            <h5>by Rebecca Yarros</h5>
             <div class="price">
-              <h2>${{amount.toFixed(2)}}</h2>
+              <h2>${{ bookDetail.Price.toFixed(2) }}</h2>
             </div>
+            <!-- <p>
+             {{bookDetail.Description}}
+           </p> -->
+            <div class="details-author">
+              <h4>Details</h4>
+              <div class="author-name">
+                <div class="content">
+                  <h5>Category</h5>
+                  <h6>{{ bookDetail.BookCategory }}</h6>
+                </div>
+              </div>
+              <div class="box-data">
+                <h5>Author</h5>
+                <div>{{bookDetail.Author}}</div>
+              </div>
+              <div class="box-data">
+                <h5>Pages</h5>
+                <div>{{ bookDetail.Pages }}</div>
+              </div>
+              <div class="box-data">
+                <h5>Language</h5>
+                <div>{{bookDetail.Language}}</div>
+              </div>
+            </div>
+          </div>
+          <div class="pricing-section">
             <div class="cart-details">
               <div class="btn-grp">
-                <button (click)="decrease()">-</button>
-                <h5>{{quantity}}</h5>
-                <button (click)="increase()">+</button>
+                <button class="disabled" (click)="decrease()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M6.25 12.75C6.0375 12.75 5.85938 12.6781 5.71563 12.5343C5.57187 12.3905 5.5 12.2123 5.5 11.9997C5.5 11.7871 5.57187 11.609 5.71563 11.4654C5.85938 11.3218 6.0375 11.25 6.25 11.25H17.75C17.9625 11.25 18.1406 11.3219 18.2843 11.4657C18.4281 11.6095 18.5 11.7877 18.5 12.0003C18.5 12.2129 18.4281 12.391 18.2843 12.5346C18.1406 12.6782 17.9625 12.75 17.75 12.75H6.25Z"
+                      fill="#BCBCBC" />
+                  </svg>
+                </button>
+                <h5>{{ quantity }}</h5>
+                <button (click)="increase()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M11.25 12.75H6.25C6.0375 12.75 5.85938 12.6781 5.71563 12.5343C5.57187 12.3905 5.5 12.2123 5.5 11.9997C5.5 11.7871 5.57187 11.609 5.71563 11.4654C5.85938 11.3218 6.0375 11.25 6.25 11.25H11.25V6.25003C11.25 6.03753 11.3219 5.85941 11.4657 5.71566C11.6095 5.57191 11.7877 5.50003 12.0003 5.50003C12.2129 5.50003 12.391 5.57191 12.5346 5.71566C12.6782 5.85941 12.7499 6.03753 12.7499 6.25003V11.25H17.75C17.9625 11.25 18.1406 11.3219 18.2843 11.4657C18.4281 11.6095 18.5 11.7877 18.5 12.0003C18.5 12.2129 18.4281 12.391 18.2843 12.5346C18.1406 12.6782 17.9625 12.75 17.75 12.75H12.7499V17.75C12.7499 17.9625 12.6781 18.1406 12.5342 18.2844C12.3904 18.4281 12.2122 18.5 11.9997 18.5C11.787 18.5 11.609 18.4281 11.4654 18.2844C11.3218 18.1406 11.25 17.9625 11.25 17.75V12.75Z"
+                      fill="#011627" />
+                  </svg>
+                </button>
               </div>
               <div class="btn-content">
-                <button class="btn-cart" (click)="addToCart()">
+                <button class="btn-cart" (click)="addToCart(bookDetail)">
                   <span class="k-icon k-font-icon k-i-cart k-i-shopping-cart"></span>
                   Add to cart
                 </button>
@@ -56,41 +72,54 @@
         </div>
         <div class="book-form-store" *ngIf="isAdminView" [formGroup]="bookForm">
           <div class="desc-wrapper">
-          <kendo-textbox type="text" id="Name" name="Name" formControlName="Name"></kendo-textbox>
-          <kendo-textarea type="text" id="Description" name="Description" formControlName="Description"></kendo-textarea>
-          <div class="details-author">
-            <div class="author-name">
-              <div class="content">
-                <h5>Category</h5>
+            <kendo-textbox class="mb-3" type="text" id="Name" name="Name" formControlName="Name"></kendo-textbox>
+            <kendo-textarea class="mb-3" type="text" id="Description" name="Description"
+              formControlName="Description"></kendo-textarea>
+            <div class="details-author">
+              <div class="author-name">
+                <div class="content mb-3">
+                  <h5>Category</h5>
+                  <h6>
+                    <kendo-dropdownlist [data]="categories" textField="Name" valueField="ID" [valuePrimitive]="true"
+                      formControlName="BookCategoryID">
+                    </kendo-dropdownlist>
+                  </h6>
+                </div>
+              </div>
+              <div class="box-data mb-3">
+                <h5>Topics</h5>
                 <h6>
-                  <kendo-dropdownlist 
-                    [data]="categories" 
-                    textField="Name" 
-                    valueField="ID" 
-                    [valuePrimitive]="true"
-                    formControlName="BookCategoryID">
-                  </kendo-dropdownlist>
+                  <kendo-multiselect valueField="ID" textField="Name" [data]="topics"
+                    formControlName="Topics"></kendo-multiselect>
+                    {{this.bookTopics | json}}
+                </h6>
+              </div>
+              <div class="box-data mb-3">
+                <h5>Pages</h5>
+                <h6>
+                  <kendo-textbox valueField="Pages" textField="Pages" formControlName="Pages"></kendo-textbox>
+                </h6>
+              </div>
+              <div class="box-data mb-3">
+                <h5>Author</h5>
+                <h6>
+                  <kendo-textbox valueField="Author" textField="Author" formControlName="Author"></kendo-textbox>
+                </h6>
+              </div>
+              <div class="box-data mb-3">
+                <h5>Language</h5>
+                <h6>
+                  <kendo-textbox valueField="Language" textField="Language" formControlName="Language"></kendo-textbox>
                 </h6>
               </div>
             </div>
-            <div class="box-data">
-              <h5>Topics</h5>
-              <h6>
-                <kendo-multiselect valueField="ID" textField="Name" [data]="topics"
-                  formControlName="Topics"></kendo-multiselect>
-              </h6>
-            </div>
-            <div class="box-data">
-              <h5>Pages</h5>
-              <h6>
-                <kendo-textbox valueField="Pages" textField="Pages" formControlName="Pages"></kendo-textbox>
-              </h6>
-            </div>
-          </div>
           </div>
           <div class="pricing-section">
             <div class="price">
-              <h2><kendo-numerictextbox type="number" id="Amount" format="c" [decimals]="2" name="Amount" formControlName="Amount"></kendo-numerictextbox></h2>
+              <h2>
+                <kendo-numerictextbox type="number" id="Price" format="c" [decimals]="2" name="Price"
+                  formControlName="Price"></kendo-numerictextbox>
+              </h2>
             </div>
             <div class="cart-details">
               <div class="btn-content">
@@ -103,5 +132,35 @@
         </div>
       </div>
     </div>
+    <div class="Description-content" *ngIf="bookDetail && !isAdminView">
+      <h5>Description</h5>
+      <p>
+        {{bookDetail.Description}}
+      </p>
+    </div>
+    <div class="topic-details-body" *ngIf="bookDetail && !isAdminView && bookTopics.length">
+      <h5>What Kind of <span>Topics</span> in {{bookDetail.Name}}</h5>
+      <ul>
+        <li *ngFor="let topic of bookTopics">{{topic.Name}}</li>
+      </ul>
+    </div>
+    <div class="link-item-wrapper" *ngIf="!isAdminView && relatedBooks.length">
+      <h4>You May Also Like</h4>
+      <div class="category-main-wrapper">
+        <div class="category-card" *ngFor="let book of relatedBooks" (click)="goToDetails(book)">
+          <div class="img-wrap">
+            <img src="../../assets/book1.png" alt="">
+          </div>
+          <div class="details">
+            <h5>{{book.Name}}</h5>
+            <h6>{{book.Author}}</h6>
+            <p>${{book.Price}}</p>
+            <button class="btn-cart" (click)="addToCart(bookDetail)">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
-  </div>
+</div>

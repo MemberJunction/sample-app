@@ -8,8 +8,10 @@
 }
 
 .org-info {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     flex-direction: column;
+    gap: 20px;
 }
 
 .info-header {
@@ -23,12 +25,43 @@
 .info-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px; 
-    padding-bottom: 10px;
-    border-bottom: 1px solid #EBEBEB;
+
     
 }
-
+.btn-row {
+    display: flex;
+justify-content: flex-end;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+.btn-row .info-value {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.btn-cancel {
+    border-radius: 4px;
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    background: var(--Light, #FAFAFA);
+    color: var(--Balck, #011627);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px; 
+    padding: 9px 16px;
+}
+.btn-save {
+    padding: 9px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--Orange, #ED553B);
+    background: var(--Orange, #ED553B);
+    color: var(--component-text-white, #FFF);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px; 
+}
 .info-label {
     color: #424242;
     font-size: 14px;
@@ -44,9 +77,13 @@
     font-weight: 400;
     line-height: 20px;
 }
-
+.wrap-input {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
 ::ng-deep .org-body .k-tabstrip-items .k-item.k-active {
-    color: var(--Secondary-Green, #6FC067);
+    color: #006EA6;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -77,15 +114,17 @@
 }
 
 .org-info {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     flex-direction: column;
+    gap: 20px;
 }
   
 .text-right {
     text-align: right;
 }
   .tab-main-wrap {
-    padding: 50px 0;
+    padding: 0;
   }
   .tab-main-wrap h2 {
     color: var(--Primary-Green, #28533F);
@@ -101,9 +140,11 @@
     gap: 24px;
   }
   .content-wrapper .topic-box {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     align-items: center;
+    justify-content: space-between;
   }
   .content-wrapper .topic-box h5 { 
     font-size: 16px;
@@ -111,6 +152,10 @@
     font-weight: 400;
     margin: 0;
     color: #28533F;
+  }
+  ::ng-deep .topic-box .example-config {
+    display: flex;
+    justify-content: flex-end;
   }
   ::ng-deep .topic-box .example-config .k-slider .k-slider-wrap .k-slider-track .k-slider-selection {
     background: #6FC067;

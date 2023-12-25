@@ -19,10 +19,10 @@
     </div>
     <div class="header-banner">
         <h2>Search Any Organization You Want</h2>
-        <kendo-combobox #filterContactLevel class="filter-item-large" [data]="searchCriteria" textField="name"
-            valueField="value" placeholder="Position Level" [(value)]="selectedCriteria">
-        </kendo-combobox>
         <div class="search-header">
+            <kendo-combobox #filterContactLevel class="filter-item-large" [data]="searchCriteria" textField="name"
+                valueField="value" placeholder="Position Level" [(value)]="selectedCriteria">
+            </kendo-combobox>
             <input kendoTextBox type="text" [(ngModel)]="searchText" class="search-textbox"
                 placeholder="Search by Name, Web Domain, or Tax ID" (keydown.enter)="doSearch()" />
             <button kendoButton (click)="doSearch()" class="search-button">

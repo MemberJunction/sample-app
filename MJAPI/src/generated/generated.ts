@@ -2,7 +2,7 @@
 * ALL ENTITIES - TypeORM/TypeGraphQL Type Class Definition - AUTO GENERATED FILE
 * Generated Entities and Resolvers for Server
 * 
-* GENERATED: 12/8/2023, 3:55:03 PM
+* GENERATED: 12/24/2023, 8:58:39 PM
 * 
 *   >>> DO NOT MODIFY THIS FILE!!!!!!!!!!!!
 *   >>> YOUR CHANGES WILL BE OVERWRITTEN
@@ -15060,6 +15060,10 @@ export class BookCategory_ extends BaseEntity {
     @Column()
     UpdatedAt: Date;
       
+    @Field(() => Int, {nullable: true}) 
+    @Column()
+    DisplayRank?: number;
+      
     @Field({nullable: true}) 
     @MaxLength(200)
     @ViewColumn()
@@ -15088,6 +15092,9 @@ export class CreateBookCategoryInput {
 
     @Field({ nullable: true })
     Description: string;
+
+    @Field(() => Int, { nullable: true })
+    DisplayRank: number;
 }
 
         
@@ -15107,6 +15114,9 @@ export class UpdateBookCategoryInput {
 
     @Field({ nullable: true })
     Description: string;
+
+    @Field(() => Int, { nullable: true })
+    DisplayRank: number;
 }
 
 //****************************************************************************
@@ -15238,6 +15248,31 @@ export class BookCategoryResolver extends ResolverBase {
         const i = input, d = dataSource; // prevent error
     }
 
+    @Mutation(() => Int)
+    async DeleteBookCategory(@Arg('ID', () => Int) ID: number, @Ctx() { dataSource, userPayload }: AppContext, @PubSub() pubSub: PubSubEngine) {
+        if (await this.BeforeDelete(dataSource, ID)) { // fire event and proceed if it wasn't cancelled
+            const entityObject = await new Metadata().GetEntityObject('Book Categories', this.GetUserFromPayload(userPayload));
+            await entityObject.Load(ID)
+            if (await entityObject.Delete()) {
+                await this.AfterDelete(dataSource, ID); // fire event
+                return ID;
+            }
+            else 
+                return null; // delete failed
+        }
+        else
+            return null;
+    }
+
+    // Before/After UPDATE Event Hooks for Sub-Classes to Override
+    protected async BeforeDelete(dataSource: DataSource, ID: number): Promise<boolean> {
+        const i = ID, d = dataSource; // prevent error;
+        return true;
+    }
+    protected async AfterDelete(dataSource: DataSource, ID: number) {
+        const i = ID, d = dataSource; // prevent error
+    }
+
 }
 
 //****************************************************************************
@@ -15289,6 +15324,24 @@ export class Book_ extends BaseEntity {
     @Column()
     UpdatedAt: Date;
       
+    @Field(() => Float) 
+    @Column()
+    Price: number;
+      
+    @Field(() => Float, {nullable: true}) 
+    @Column()
+    DiscountAmount?: number;
+      
+    @Field() 
+    @MaxLength(200)
+    @Column()
+    Author: string;
+      
+    @Field() 
+    @MaxLength(100)
+    @Column()
+    Language: string;
+      
     @Field() 
     @MaxLength(200)
     @ViewColumn()
@@ -15326,6 +15379,18 @@ export class CreateBookInput {
 
     @Field({ nullable: true })
     FullText: string;
+
+    @Field(() => Float, )
+    Price: number;
+
+    @Field(() => Float, { nullable: true })
+    DiscountAmount: number;
+
+    @Field()
+    Author: string;
+
+    @Field()
+    Language: string;
 }
 
         
@@ -15354,6 +15419,18 @@ export class UpdateBookInput {
 
     @Field({ nullable: true })
     FullText: string;
+
+    @Field(() => Float, )
+    Price: number;
+
+    @Field(() => Float, { nullable: true })
+    DiscountAmount: number;
+
+    @Field()
+    Author: string;
+
+    @Field()
+    Language: string;
 }
 
 //****************************************************************************
@@ -15485,6 +15562,31 @@ export class BookResolver extends ResolverBase {
         const i = input, d = dataSource; // prevent error
     }
 
+    @Mutation(() => Int)
+    async DeleteBook(@Arg('ID', () => Int) ID: number, @Ctx() { dataSource, userPayload }: AppContext, @PubSub() pubSub: PubSubEngine) {
+        if (await this.BeforeDelete(dataSource, ID)) { // fire event and proceed if it wasn't cancelled
+            const entityObject = await new Metadata().GetEntityObject('Books', this.GetUserFromPayload(userPayload));
+            await entityObject.Load(ID)
+            if (await entityObject.Delete()) {
+                await this.AfterDelete(dataSource, ID); // fire event
+                return ID;
+            }
+            else 
+                return null; // delete failed
+        }
+        else
+            return null;
+    }
+
+    // Before/After UPDATE Event Hooks for Sub-Classes to Override
+    protected async BeforeDelete(dataSource: DataSource, ID: number): Promise<boolean> {
+        const i = ID, d = dataSource; // prevent error;
+        return true;
+    }
+    protected async AfterDelete(dataSource: DataSource, ID: number) {
+        const i = ID, d = dataSource; // prevent error
+    }
+
 }
 
 //****************************************************************************
@@ -15518,6 +15620,10 @@ export class Topic_ extends BaseEntity {
     @MaxLength(8)
     @Column()
     UpdatedAt: Date;
+      
+    @Field(() => Int, {nullable: true}) 
+    @Column()
+    DisplayRank?: number;
     
     @Field(() => [BookTopic_])
     @OneToMany(() => BookTopic_, () => null)
@@ -15539,6 +15645,9 @@ export class CreateTopicInput {
 
     @Field({ nullable: true })
     Description: string;
+
+    @Field(() => Int, { nullable: true })
+    DisplayRank: number;
 }
 
         
@@ -15555,6 +15664,9 @@ export class UpdateTopicInput {
 
     @Field({ nullable: true })
     Description: string;
+
+    @Field(() => Int, { nullable: true })
+    DisplayRank: number;
 }
 
 //****************************************************************************
@@ -15684,6 +15796,31 @@ export class TopicResolver extends ResolverBase {
     }
     protected async AfterUpdate(dataSource: DataSource, input: UpdateTopicInput) {
         const i = input, d = dataSource; // prevent error
+    }
+
+    @Mutation(() => Int)
+    async DeleteTopic(@Arg('ID', () => Int) ID: number, @Ctx() { dataSource, userPayload }: AppContext, @PubSub() pubSub: PubSubEngine) {
+        if (await this.BeforeDelete(dataSource, ID)) { // fire event and proceed if it wasn't cancelled
+            const entityObject = await new Metadata().GetEntityObject('Topics', this.GetUserFromPayload(userPayload));
+            await entityObject.Load(ID)
+            if (await entityObject.Delete()) {
+                await this.AfterDelete(dataSource, ID); // fire event
+                return ID;
+            }
+            else 
+                return null; // delete failed
+        }
+        else
+            return null;
+    }
+
+    // Before/After UPDATE Event Hooks for Sub-Classes to Override
+    protected async BeforeDelete(dataSource: DataSource, ID: number): Promise<boolean> {
+        const i = ID, d = dataSource; // prevent error;
+        return true;
+    }
+    protected async AfterDelete(dataSource: DataSource, ID: number) {
+        const i = ID, d = dataSource; // prevent error
     }
 
 }
@@ -15883,6 +16020,31 @@ export class BookTopicResolver extends ResolverBase {
     }
     protected async AfterUpdate(dataSource: DataSource, input: UpdateBookTopicInput) {
         const i = input, d = dataSource; // prevent error
+    }
+
+    @Mutation(() => Int)
+    async DeleteBookTopic(@Arg('ID', () => Int) ID: number, @Ctx() { dataSource, userPayload }: AppContext, @PubSub() pubSub: PubSubEngine) {
+        if (await this.BeforeDelete(dataSource, ID)) { // fire event and proceed if it wasn't cancelled
+            const entityObject = await new Metadata().GetEntityObject('Book Topics', this.GetUserFromPayload(userPayload));
+            await entityObject.Load(ID)
+            if (await entityObject.Delete()) {
+                await this.AfterDelete(dataSource, ID); // fire event
+                return ID;
+            }
+            else 
+                return null; // delete failed
+        }
+        else
+            return null;
+    }
+
+    // Before/After UPDATE Event Hooks for Sub-Classes to Override
+    protected async BeforeDelete(dataSource: DataSource, ID: number): Promise<boolean> {
+        const i = ID, d = dataSource; // prevent error;
+        return true;
+    }
+    protected async AfterDelete(dataSource: DataSource, ID: number) {
+        const i = ID, d = dataSource; // prevent error
     }
 
 }
@@ -16388,18 +16550,14 @@ export class PersonTopic_ extends BaseEntity {
     @Column()
     TopicID: number;
       
-    @Field(() => Int, {nullable: true}) 
-    @Column()
-    BookTopicID?: number;
-      
-    @Field({nullable: true}) 
-    @MaxLength(8)
-    @Column()
-    DateAdded?: Date;
-      
     @Field(() => Int) 
     @Column()
     InterestLevel: number;
+      
+    @Field() 
+    @MaxLength(8)
+    @Column()
+    CreatedAt: Date;
     
 }
         
@@ -16413,12 +16571,6 @@ export class CreatePersonTopicInput {
 
     @Field(() => Int, )
     TopicID: number;
-
-    @Field(() => Int, { nullable: true })
-    BookTopicID: number;
-
-    @Field({ nullable: true })
-    DateAdded: Date;
 
     @Field(() => Int, )
     InterestLevel: number;
@@ -16438,12 +16590,6 @@ export class UpdatePersonTopicInput {
 
     @Field(() => Int, )
     TopicID: number;
-
-    @Field(() => Int, { nullable: true })
-    BookTopicID: number;
-
-    @Field({ nullable: true })
-    DateAdded: Date;
 
     @Field(() => Int, )
     InterestLevel: number;

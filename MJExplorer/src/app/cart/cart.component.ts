@@ -45,7 +45,7 @@ export class CartComponent {
         purchaseDetailEntity.PurchaseID = purchaseEntity.ID;
         purchaseDetailEntity.BookID = book.ID;
         purchaseDetailEntity.Quantity = book.Quantity;
-        purchaseDetailEntity.Amount = book.Amount;
+        purchaseDetailEntity.Amount = book.Price;
         purchaseDetailEntity.Total = this.calculateTotal(book);
         purchaseDetailEntity.Discount = 0;
         await purchaseDetailEntity.Save();

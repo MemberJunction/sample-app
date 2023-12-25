@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookCategoryEntity, BookEntity } from 'mj_generatedentities';
+import { BookCategoryEntity, BookEntity, TopicEntity } from 'mj_generatedentities';
 import { SharedService } from '../utils/shared-service';
 import { SharedData } from '../utils/shared-data';
 import { Title } from '@angular/platform-browser';
@@ -9,15 +9,15 @@ import { Book } from '../book-detail/book-detail.component';
 import { CartService } from '../utils/cart.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-topic',
+  templateUrl: './topic.component.html',
+  styleUrls: ['./topic.component.css']
 })
-export class CategoryComponent {
+export class TopicComponent {
   public loaded: boolean = false;
-  public booksByCategory: any[] = [];
-  public categoryId: number | null = null
-  public category: BookCategoryEntity | undefined = undefined;
+  public booksByTopic: any[] = [];
+  public topicId: number | null = null
+  public topic : TopicEntity | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute, 
@@ -28,9 +28,9 @@ export class CategoryComponent {
     private cartService: CartService,
     ) {
     this.route.params.subscribe(params => {
-      let categoryId = params['categoryId'];
-      if (categoryId !== undefined && categoryId !== null && !this.categoryId)
-        this.categoryId = parseInt(categoryId);
+      let categoryId = params['topicId'];
+      if (categoryId !== undefined && categoryId !== null && !this.topicId)
+        this.topicId = parseInt(categoryId);
     });
   }
 
@@ -47,15 +47,14 @@ export class CategoryComponent {
       const rv = new RunView();
       const result = await rv.RunView({
         EntityName: 'Books',
-        ExtraFilter: `BookCategoryId = ${this.categoryId}`
+        ExtraFilter: `Id IN (SELECT bt.BookID from dbo.vwBookTopics bt WHERE bt.TopicID=${this.topicId})`
 
       });
       if (result.Success) {
-        debugger;
-        this.booksByCategory = result.Results;
+        this.booksByTopic = result.Results;
       }
       // update the browser title
-      this.titleService.setTitle(`${this.category?.Name}`)
+      this.titleService.setTitle(`${this.topic?.Name}`)
     }, 50);
   }
 
@@ -66,13 +65,13 @@ export class CategoryComponent {
   async loadData() {
     this.sharedService.setupComplete$.subscribe(async (isComplete) => {
       if (isComplete) {
-        if (this.categoryId !== null && this.categoryId !== undefined) {
-          if (this.category === null || this.category === undefined) {
-            this.category = this.sharedData.BookCategories.find(r => r.ID === this.categoryId);
+        if (this.topicId !== null && this.topicId !== undefined) {
+          if (this.topic === null || this.topic === undefined) {
+            this.topic = this.sharedData.BookCategories.find(r => r.ID === this.topicId);
           }
-          if (this.category !== null && this.category !== undefined) {
+          if (this.topic !== null && this.topic !== undefined) {
             // get the tax data for this role from the shared data cache
-            const role = this.category.Name;
+            const role = this.topic.Name;
             this.groupAndFilterData();
             this.loaded = true;
           }
@@ -83,7 +82,7 @@ export class CategoryComponent {
 
 
   goToDetails(book: BookEntity) {
-    if (this.category) {
+    if (this.topic) {
       this.router.navigate(['book-detail', book.ID]);
     }
   }
@@ -98,8 +97,8 @@ export class CategoryComponent {
       ID: bookDetail.ID,
       Name: bookDetail.Name,
       Description: bookDetail.Description,
-      Author: bookDetail.Author,
       Language: bookDetail.Language,
+      Author: bookDetail.Author,
       Price: bookDetail.Price,
       Quantity: 1
     };

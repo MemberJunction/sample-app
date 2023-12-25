@@ -40,7 +40,7 @@
     line-height: 24px;
 }
 .search-button:hover {
-    background: #28533F;
+    background: var(--Orange, #d24830);
     transition: all 0.5s ease;
 }
 .search-button {
@@ -50,8 +50,8 @@
     align-items: center;
     gap: 4px;
     border-radius: 50px;
-    border: 1px solid #6FC067;
-    background: #6FC067;
+    border: 1px solid var(--Orange, #ED553B);
+    background: var(--Orange, #ED553B);
     color: #FFF;
     padding: 0 16px;
     text-align: center;
@@ -76,7 +76,7 @@
 }
 
 .header-banner {
-    background: #28533F;
+    background: var(--Blue, #006EA6);
     width: 100%;
     height: 190px;
     display: flex;
@@ -152,7 +152,14 @@
     font-weight: 400;
     line-height: 20px;
 }
-
+.filter-item-large {
+    flex: 1;
+    height: 48px;
+    padding: 0 0 0 24px;
+    border-radius: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #FFF;
+}
 @media (max-width: 991px) {
     .search-main-wrapper {
       height: 100vh;

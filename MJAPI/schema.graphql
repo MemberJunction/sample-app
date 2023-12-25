@@ -144,6 +144,7 @@ type BookCategory_ {
   Books: [Book_!]!
   CreatedAt: Timestamp!
   Description: String
+  DisplayRank: Int
   ID: Int!
   Name: String!
   Parent: String
@@ -163,16 +164,20 @@ type BookTopic_ {
 }
 
 type Book_ {
+  Author: String!
   BookCategory: String!
   BookCategoryID: Int!
   BookTopics: [BookTopic_!]!
   CoverImageURL: String
   CreatedAt: Timestamp!
   Description: String
+  DiscountAmount: Float
   FullText: String
   ID: Int!
+  Language: String!
   Name: String!
   Pages: Int!
+  Price: Float!
   PurchaseDetails: [PurchaseDetail_!]!
   UpdatedAt: Timestamp!
 }
@@ -333,17 +338,22 @@ input CreateAuditLogInput {
 
 input CreateBookCategoryInput {
   Description: String
+  DisplayRank: Int
   Name: String!
   ParentID: Int
 }
 
 input CreateBookInput {
+  Author: String!
   BookCategoryID: Int!
   CoverImageURL: String
   Description: String
+  DiscountAmount: Float
   FullText: String
+  Language: String!
   Name: String!
   Pages: Int!
+  Price: Float!
 }
 
 input CreateBookTopicInput {
@@ -525,8 +535,6 @@ input CreatePersonInput {
 }
 
 input CreatePersonTopicInput {
-  BookTopicID: Int
-  DateAdded: Timestamp
   InterestLevel: Int!
   PersonID: Int!
   TopicID: Int!
@@ -651,6 +659,7 @@ input CreateSchemaInfoInput {
 
 input CreateTopicInput {
   Description: String
+  DisplayRank: Int
   Name: String!
 }
 
@@ -1222,6 +1231,9 @@ type Mutation {
   CreateWorkspace(input: CreateWorkspaceInput!): Workspace_!
   CreateWorkspaceItem(input: CreateWorkspaceItemInput!): WorkspaceItem_!
   DeleteApplicationEntity(ID: Int!): Int!
+  DeleteBook(ID: Int!): Int!
+  DeleteBookCategory(ID: Int!): Int!
+  DeleteBookTopic(ID: Int!): Int!
   DeleteCompany(ID: Int!): Int!
   DeleteConversation(ID: Int!): Int!
   DeleteConversationDetail(ID: Int!): Int!
@@ -1235,6 +1247,7 @@ type Mutation {
   DeleteListDetail(ID: Int!): Int!
   DeleteReport(ID: Int!): Int!
   DeleteReportSnapshot(ID: Int!): Int!
+  DeleteTopic(ID: Int!): Int!
   DeleteUserApplicationEntity(ID: Int!): Int!
   DeleteUserFavorite(ID: Int!): Int!
   DeleteUserView(ID: Int!): Int!
@@ -1343,8 +1356,7 @@ type OutputTriggerType_ {
 }
 
 type PersonTopic_ {
-  BookTopicID: Int
-  DateAdded: Timestamp
+  CreatedAt: Timestamp!
   ID: Int!
   InterestLevel: Int!
   PersonID: Int!
@@ -2998,6 +3010,7 @@ type Topic_ {
   BookTopics: [BookTopic_!]!
   CreatedAt: Timestamp!
   Description: String
+  DisplayRank: Int
   ID: Int!
   Name: String!
   PersonTopics: [PersonTopic_!]!
@@ -3065,19 +3078,24 @@ input UpdateAuditLogInput {
 
 input UpdateBookCategoryInput {
   Description: String
+  DisplayRank: Int
   ID: Int!
   Name: String!
   ParentID: Int
 }
 
 input UpdateBookInput {
+  Author: String!
   BookCategoryID: Int!
   CoverImageURL: String
   Description: String
+  DiscountAmount: Float
   FullText: String
   ID: Int!
+  Language: String!
   Name: String!
   Pages: Int!
+  Price: Float!
 }
 
 input UpdateBookTopicInput {
@@ -3383,8 +3401,6 @@ input UpdatePersonInput {
 }
 
 input UpdatePersonTopicInput {
-  BookTopicID: Int
-  DateAdded: Timestamp
   ID: Int!
   InterestLevel: Int!
   PersonID: Int!
@@ -3516,6 +3532,7 @@ input UpdateSchemaInfoInput {
 
 input UpdateTopicInput {
   Description: String
+  DisplayRank: Int
   ID: Int!
   Name: String!
 }

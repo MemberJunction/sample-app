@@ -31,6 +31,10 @@ import { BookCategoryEntity } from 'mj_generatedentities';
             <span >{{FormatValue('UpdatedAt', 0)}}</span>   
         </div>               
         <div class="record-form-row">
+            <label class="fieldLabel">Display Rank</label>
+            <kendo-numerictextbox [(value)]="record.DisplayRank" ></kendo-numerictextbox>   
+        </div>               
+        <div class="record-form-row">
             <label class="fieldLabel">Parent</label>
             <span >{{FormatValue('Parent', 0)}}</span>   
         </div> 
@@ -56,6 +60,10 @@ import { BookCategoryEntity } from 'mj_generatedentities';
         <div class="record-form-row">
             <label class="fieldLabel">Updated At</label>
             <span >{{FormatValue('UpdatedAt', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Display Rank</label>
+            <span >{{FormatValue('DisplayRank', 0)}}</span>
         </div>              
         <div class="record-form-row">
             <label class="fieldLabel">Parent</label>

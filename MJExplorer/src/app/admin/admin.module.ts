@@ -6,7 +6,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { GridModule } from '@progress/kendo-angular-grid';
 import { IconsModule } from '@progress/kendo-angular-icons';
 import { DropDownsModule } from "@progress/kendo-angular-dropdowns";
-
+import { LayoutModule } from '@progress/kendo-angular-layout';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 import { TopicDetailComponent } from './topic-detail/topic-detail.component';
 import { TopicsComponent } from './topics/topics.component';
@@ -32,7 +34,10 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
         DropDownsModule,
         FormsModule,
         ReactiveFormsModule,
+        LayoutModule,
         AdminRoutingModule,
+        InputsModule,
+        ButtonsModule,
     ],
     exports:[SubCategoryComponent]
 })

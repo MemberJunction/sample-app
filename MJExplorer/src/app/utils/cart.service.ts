@@ -23,7 +23,7 @@ export class CartService {
       updatedCart[existingItemIndex].Quantity += book.Quantity;
       this.cartItemsSubject.next(updatedCart);
     } else {
-      const roundedBook = { ...book, Amount: this.roundNumber(book.Amount) };
+      const roundedBook = { ...book, Price: this.roundNumber(book.Price) };
       const updatedCart = [...currentCartItems, roundedBook];
       this.cartItemsSubject.next(updatedCart);
     }
@@ -40,7 +40,7 @@ export class CartService {
     const roundedBook = {
       ...book,
       Quantity: book.Quantity > 1 ? book.Quantity - 1 : 1, // Ensure quantity is at least 1
-      Amount: this.roundNumber(book.Amount),
+      Price: this.roundNumber(book.Price),
     };
     const currentCartItems = this.cartItemsSubject.value;
     const updatedCart = currentCartItems.map((item) => (item.ID === book.ID ? roundedBook : item));
@@ -51,7 +51,7 @@ export class CartService {
     const roundedBook = {
       ...book,
       Quantity: book.Quantity + 1,
-      Amount: this.roundNumber(book.Amount),
+      Price: this.roundNumber(book.Price),
     };
 
 
@@ -69,7 +69,7 @@ export class CartService {
   }
 
   calculateTotal(book: Book): number {
-    return this.roundNumber(book.Quantity * book.Amount);
+    return this.roundNumber(book.Quantity * book.Price);
   }
 
   calculateGrandTotal(): number {

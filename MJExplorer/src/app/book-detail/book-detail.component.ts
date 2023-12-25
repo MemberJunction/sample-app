@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../utils/shared-service';
 import { BookEntity, BookTopicEntity, TopicEntity } from 'mj_generatedentities';
 import { Metadata, RunView } from '@memberjunction/core';
@@ -11,8 +11,10 @@ export interface Book {
   ID: number;
   Name: string;
   Description: string;
+  Author: string;
+  Language: string;
   Quantity: number;
-  Amount: number;
+  Price: number;
 }
 
 @Component({
@@ -20,7 +22,7 @@ export interface Book {
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.css']
 })
-export class BookDetailComponent {
+export class BookDetailComponent implements OnInit {
   public bookDetail!: BookEntity;
   public bookId!: number;
   public quantity: number = 1;
@@ -28,10 +30,10 @@ export class BookDetailComponent {
   public isAdmin: boolean = false;
   public bookTopics: any[] = [];
   public bookForm: FormGroup = new FormGroup({});
-  public amount: number = 24;
   public topics: any = [];
   public categories: any = [];
   public initialBookTopics: any[] = [];
+  public relatedBooks: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -43,11 +45,17 @@ export class BookDetailComponent {
   ) { }
 
   async ngOnInit() {
+   this.loadInitialData();
+  }
+
+  loadInitialData(){
     this.bookForm = this.formBuilder.group({
       Name: ['', Validators.required],
       Pages: ['', Validators.required],
       BookCategoryID: ['', Validators.required],
-      Amount: [0, Validators.required],
+      Author: ['', Validators.required],
+      Language: ['', Validators.required],
+      Price: [0, Validators.required],
       Topics: [[], Validators.required],
       Description: ['', [Validators.required]]
     });
@@ -55,7 +63,6 @@ export class BookDetailComponent {
       let bookId = params['bookId'];
       if (bookId !== undefined && bookId !== null && !this.bookId)
         this.bookId = parseInt(bookId);
-
     });
     this.sharedService.setupComplete$.subscribe(isComplete => {
       if (isComplete) {
@@ -66,22 +73,23 @@ export class BookDetailComponent {
         const admin = md.CurrentUser.UserRoles.findIndex((role) => role.RoleName === 'Developer');
         if (admin !== -1) {
           this.isAdmin = true;
-          this.isAdminView = true;
         }
       }
     });
-
   }
 
   async loadBookDetails() {
     const md = new Metadata();
     this.bookDetail = <BookEntity>await md.GetEntityObject('Books');
     await this.bookDetail.Load(this.bookId);
+    this.loadRelatedBooks();
     this.bookForm.patchValue({
       Name: this.bookDetail.Name,
       Pages: this.bookDetail.Pages,
       BookCategoryID: this.bookDetail.BookCategoryID,
-      Amount: this.amount,
+      Author: this.bookDetail.Author,
+      Language: this.bookDetail.Language,
+      Price: this.bookDetail.Price,
       Topics: [],
       Description: this.bookDetail.Description
     });
@@ -105,26 +113,45 @@ export class BookDetailComponent {
     }
   }
 
-  addToCart() {
-    const book: Book = {
-      ID: this.bookDetail.ID,
-      Name: this.bookDetail.Name,
-      Description: this.bookDetail.Description,
-      Amount: this.amount,
-      Quantity: this.quantity
-    };
-    this.cartService.addToCart(book);
-    this.router.navigate(['/cart']);
+  async loadRelatedBooks() {
+    setTimeout(async () => {
+      const rv = new RunView();
+      const result = await rv.RunView({
+        EntityName: 'Books',
+        ExtraFilter: `BookCategoryId = ${this.bookDetail.BookCategoryID}`
+      });
+      if (result.Success) {
+        this.relatedBooks = result.Results.filter((book: BookEntity) => book.ID !== this.bookId).slice(0, 4);
+      }
+    }, 50);
+  }
+
+  addToCart(bookDetail: BookEntity) {
+    if(bookDetail.ID){
+      const book: Book = {
+        ID: bookDetail.ID,
+        Name: bookDetail.Name,
+        Description: bookDetail.Description,
+        Author: bookDetail.Author,
+        Language: bookDetail.Language,
+        Price: bookDetail.Price,
+        Quantity: this.quantity
+      };
+      this.cartService.addToCart(book);
+      this.router.navigate(['/cart']);
+    }
   }
 
   async saveBookDetails() {
     if (this.bookForm.valid) {
       const md = new Metadata();
-      const { Name, Pages, Description, BookCategoryID, Topics, Amount } = this.bookForm.value;
-      this.amount = Amount;
+      const { Name, Price, Pages, Author, Language, Description, BookCategoryID, Topics } = this.bookForm.value;
       this.bookDetail.Name = Name;
+      this.bookDetail.Price = Price;
       this.bookDetail.Pages = Pages;
       this.bookDetail.Description = Description;
+      this.bookDetail.Author = Author;
+      this.bookDetail.Language = Language;
       this.bookDetail.BookCategoryID = BookCategoryID;
       this.bookDetail.Name = Name;
       const uncommonTopics: any[] = this.bookTopics
@@ -167,7 +194,11 @@ export class BookDetailComponent {
     }
   }
 
-  getBookTopics(): string {
-    return this.bookTopics.map((topic: TopicEntity) => topic.Name).join(', ')
+  goToDetails(book: BookEntity) {
+    if (book) {
+      this.router.navigate(['book-detail', book.ID]);
+      this.bookId = book.ID;
+      this.loadInitialData();
+    }
   }
 }

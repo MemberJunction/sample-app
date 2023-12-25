@@ -49,14 +49,16 @@
                       <kendo-textbox type="number" id="Phone" name="Phone" formControlName="Phone"></kendo-textbox>
                     </span>
                   </div>
-                  <div class="info-row">
-                    <span class="info-value">
-                      <kendo-button name="save" [primary]="true" [disabled]="!personForm.valid"
-                        (click)="onPersonalDataSave()">
-                        <span class="k-icon k-i-check"></span>
-                        Save</kendo-button>
-                    </span>
-                  </div>
+                 
+                </div>
+                <div class="btn-row">
+                  <span class="info-value">
+                    <button class="btn-cancel">Cancel</button>
+                    <kendo-button name="save" class="btn-save" [primary]="true" [disabled]="!personForm.valid"
+                      (click)="onPersonalDataSave()">
+                      <span class="k-icon k-i-check"></span>
+                      Save</kendo-button>
+                  </span>
                 </div>
               </div>
             </ng-template>
@@ -116,14 +118,23 @@
                       <kendo-textbox type="number" id="Phone" name="Phone" formControlName="Phone"></kendo-textbox>
                     </span>
                   </div>
-                  <div class="info-row">
+                  <!-- <div class="info-row">
                     <span class="info-value">
                       <kendo-button name="save" [primary]="true" [disabled]="!businessForm.valid"
                         (click)="onBusinessDataSave()">
                         <span class="k-icon k-i-check"></span>
                         Save</kendo-button>
                     </span>
-                  </div>
+                  </div> -->
+                </div>
+                <div class="btn-row">
+                  <span class="info-value">
+                    <button class="btn-cancel">Cancel</button>
+                    <kendo-button name="save" class="btn-save" [primary]="true" [disabled]="!businessForm.valid"
+                    (click)="onBusinessDataSave()">
+                      <span class="k-icon k-i-check"></span>
+                      Save</kendo-button>
+                  </span>
                 </div>
               </div>
             </ng-template>
@@ -134,12 +145,16 @@
                 <h4>Topics</h4>
                 <div class="content-wrapper">
                   <div *ngFor="let personTopic of displayData" class="topic-box">
-                    <input type="checkbox" kendoCheckBox [(ngModel)]="personTopic.checked" />
-                    <h5>{{personTopic.Name}}</h5>
+                   <div class="wrap-input">
+                     <input type="checkbox" kendoCheckBox [(ngModel)]="personTopic.checked" />
+                     <h5>{{personTopic.Name}}</h5>
+                   </div>
                     <div *ngIf="personTopic.checked" class="example-config">
                       <kendo-slider 
                         id="value" 
                         [min]="0" 
+                        [smallStep]="1"
+                        [largeStep]="10"
                         [showButtons]="false" 
                         [max]="100"
                         [title]="title"
@@ -149,10 +164,19 @@
                     </div>
                   </div>
                 </div>
-                <kendo-button name="save" [primary]="true" [disabled]="!displayData.length" (click)="onPersonalTopicsSave()">
+                <div class="btn-row">
+                  <span class="info-value">
+                    <kendo-button name="save" class="btn-save" [primary]="true"  [disabled]="!displayData.length"
+                    (click)="onPersonalTopicsSave()">
+                      <span class="k-icon k-i-check"></span>
+                      Save</kendo-button>
+                  </span>
+                </div>
+                <!-- <kendo-button name="save" [primary]="true" [disabled]="!displayData.length" (click)="onPersonalTopicsSave()">
                         <span class="k-icon k-i-check"></span>
-                        Save</kendo-button>
+                        Save</kendo-button> -->
               </div>
+
             </ng-template>
           </kendo-tabstrip-tab>
           <kendo-tabstrip-tab title="Orders">

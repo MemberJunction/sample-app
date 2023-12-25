@@ -67,6 +67,18 @@ export class BookCategoryEntity extends BaseEntity {
     }
 
     /**
+    * Field Name: DisplayRank
+    * Display Name: Display Rank
+    * SQL Data Type: int
+    * Default Value: 100
+    */
+    get DisplayRank(): number {  
+        return this.Get('DisplayRank');
+    }
+    set DisplayRank(value: number) {
+        this.Set('DisplayRank', value);
+    }
+    /**
     * Field Name: Parent
     * Display Name: Parent
     * SQL Data Type: nvarchar(100)
@@ -177,6 +189,54 @@ export class BookEntity extends BaseEntity {
     }
 
     /**
+    * Field Name: Price
+    * Display Name: Price
+    * SQL Data Type: money
+    * Default Value: 0
+    */
+    get Price(): number {  
+        return this.Get('Price');
+    }
+    set Price(value: number) {
+        this.Set('Price', value);
+    }
+    /**
+    * Field Name: DiscountAmount
+    * Display Name: Discount Amount
+    * SQL Data Type: money
+    * Default Value: 0
+    */
+    get DiscountAmount(): number {  
+        return this.Get('DiscountAmount');
+    }
+    set DiscountAmount(value: number) {
+        this.Set('DiscountAmount', value);
+    }
+    /**
+    * Field Name: Author
+    * Display Name: Author
+    * SQL Data Type: nvarchar(100)
+    * Default Value: N'Jane Doe'
+    */
+    get Author(): string {  
+        return this.Get('Author');
+    }
+    set Author(value: string) {
+        this.Set('Author', value);
+    }
+    /**
+    * Field Name: Language
+    * Display Name: Language
+    * SQL Data Type: nvarchar(50)
+    * Default Value: N'English'
+    */
+    get Language(): string {  
+        return this.Get('Language');
+    }
+    set Language(value: string) {
+        this.Set('Language', value);
+    }
+    /**
     * Field Name: BookCategory
     * Display Name: Book Category
     * SQL Data Type: nvarchar(100)
@@ -241,6 +301,18 @@ export class TopicEntity extends BaseEntity {
         return this.Get('UpdatedAt');
     }
 
+    /**
+    * Field Name: DisplayRank
+    * Display Name: Display Rank
+    * SQL Data Type: int
+    * Default Value: 100
+    */
+    get DisplayRank(): number {  
+        return this.Get('DisplayRank');
+    }
+    set DisplayRank(value: number) {
+        this.Set('DisplayRank', value);
+    }
 
 }
 
@@ -512,6 +584,7 @@ export class PersonEntity extends BaseEntity {
     * Field Name: CreatedAt
     * Display Name: Created At
     * SQL Data Type: datetime
+    * Default Value: getdate()
     */
     get CreatedAt(): Date {  
         return this.Get('CreatedAt');
@@ -521,6 +594,7 @@ export class PersonEntity extends BaseEntity {
     * Field Name: UpdatedAt
     * Display Name: Updated At
     * SQL Data Type: datetime
+    * Default Value: getdate()
     */
     get UpdatedAt(): Date {  
         return this.Get('UpdatedAt');
@@ -565,30 +639,6 @@ export class PersonTopicEntity extends BaseEntity {
         this.Set('TopicID', value);
     }
     /**
-    * Field Name: BookTopicID
-    * Display Name: Book Topic ID
-    * SQL Data Type: int
-    * Related Entity: Book Topics
-    */
-    get BookTopicID(): number {  
-        return this.Get('BookTopicID');
-    }
-    set BookTopicID(value: number) {
-        this.Set('BookTopicID', value);
-    }
-    /**
-    * Field Name: DateAdded
-    * Display Name: Date Added
-    * SQL Data Type: datetime
-    * Default Value: getdate()
-    */
-    get DateAdded(): Date {  
-        return this.Get('DateAdded');
-    }
-    set DateAdded(value: Date) {
-        this.Set('DateAdded', value);
-    }
-    /**
     * Field Name: InterestLevel
     * Display Name: Interest Level
     * SQL Data Type: int
@@ -600,6 +650,16 @@ export class PersonTopicEntity extends BaseEntity {
     set InterestLevel(value: number) {
         this.Set('InterestLevel', value);
     }
+    /**
+    * Field Name: CreatedAt
+    * Display Name: Created At
+    * SQL Data Type: datetime
+    * Default Value: getdate()
+    */
+    get CreatedAt(): Date {  
+        return this.Get('CreatedAt');
+    }
+
 
 }
 

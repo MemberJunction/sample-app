@@ -43,6 +43,22 @@ import { BookEntity } from 'mj_generatedentities';
             <span >{{FormatValue('UpdatedAt', 0)}}</span>   
         </div>               
         <div class="record-form-row">
+            <label class="fieldLabel">Price</label>
+            <kendo-numerictextbox [(value)]="record.Price" ></kendo-numerictextbox>   
+        </div>               
+        <div class="record-form-row">
+            <label class="fieldLabel">Discount Amount</label>
+            <kendo-numerictextbox [(value)]="record.DiscountAmount" ></kendo-numerictextbox>   
+        </div>               
+        <div class="record-form-row">
+            <label class="fieldLabel">Author</label>
+            <kendo-textbox [(ngModel)]="record.Author"  />   
+        </div>               
+        <div class="record-form-row">
+            <label class="fieldLabel">Language</label>
+            <kendo-textbox [(ngModel)]="record.Language"  />   
+        </div>               
+        <div class="record-form-row">
             <label class="fieldLabel">Book Category</label>
             <span >{{FormatValue('BookCategory', 0)}}</span>   
         </div> 
@@ -80,6 +96,22 @@ import { BookEntity } from 'mj_generatedentities';
         <div class="record-form-row">
             <label class="fieldLabel">Updated At</label>
             <span >{{FormatValue('UpdatedAt', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Price</label>
+            <span >{{FormatValue('Price', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Discount Amount</label>
+            <span >{{FormatValue('DiscountAmount', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Author</label>
+            <span >{{FormatValue('Author', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Language</label>
+            <span >{{FormatValue('Language', 0)}}</span>
         </div>              
         <div class="record-form-row">
             <label class="fieldLabel">Book Category</label>

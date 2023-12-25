@@ -3,14 +3,14 @@
     <kendo-loader type="converging-spinner" themeColor="primary" size="large"></kendo-loader>
   </div>
 </div>
-<div *ngIf="loaded && category" class="role-wrap">
+<div *ngIf="loaded && topic" class="role-wrap">
   <div class="breadcrumbWrapper">
     <div class="container-large">
       <div class="breadcrumb">
         <a routerLink="/">
           <kendo-icon name="home"></kendo-icon>
-        </a> <kendo-icon name="arrow-chevron-right"></kendo-icon> <a routerLink="/select-role">Books By Category</a> 
-        <kendo-icon name="arrow-chevron-right"></kendo-icon><span class="active">{{category.Name}}</span>
+        </a> <kendo-icon name="arrow-chevron-right"></kendo-icon> <a routerLink="/select-role">Books By Topic</a> 
+        <kendo-icon name="arrow-chevron-right"></kendo-icon><span class="active">{{topic.Name}}</span>
       </div>
       <div class="back-sec">
         <a routerLink="/select-role"><kendo-icon name="arrow-chevron-left"></kendo-icon>
@@ -22,10 +22,10 @@
     <div class="container-large">
       <div class="editorial-main-wrapper">
           <div class="role-title-wrap">
-              <h3> {{category.Name}}</h3>
+              <h3> {{topic.Name}}</h3>
           </div>
           <div class="category-main-wrapper">
-            <div class="category-card" *ngFor="let book of booksByCategory" (click)="goToDetails(book)">
+            <div class="category-card" *ngFor="let book of booksByTopic" (click)="goToDetails(book)">
               <div class="img-wrap">
                 <img src="../../assets/book1.png" alt="">
               </div>

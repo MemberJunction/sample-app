@@ -56,6 +56,7 @@ import { HomeComponent } from './home/home.component';
 import { CategorySelectComponent } from './category-select/category-select.component';
 import { SearchBookComponent } from './search-book/search-book.component';
 import { CategoryComponent } from './category/category.component';
+import { TopicComponent } from './topic/topic.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { AdminModule } from './admin/admin.module';
 import { CartComponent } from './cart/cart.component';
@@ -83,6 +84,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     CategorySelectComponent,
     SearchBookComponent,
     CategoryComponent,
+    TopicComponent,
     BookDetailComponent,
     CartComponent,
     ProfileComponent,

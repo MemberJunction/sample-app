@@ -1,12 +1,11 @@
 .book-store-container {
     margin: 0 auto;
     max-width: 1320px;
-    background-color: #fff;
 }
 .book-details-wrapper {
     display: flex;
     width: 100%;
-    padding: 50px 24px;
+    padding: 50px 0 0;
     gap:24px;
     box-sizing: border-box;
 }
@@ -30,18 +29,27 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    background: #FFF;
+    padding: 24px;
 }
 .information-book-details h3 {
-    font-size: 42px;
-    line-height: 56px;
-    color: #333;
+    color: var(--Balck, #011627);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px; 
     width: 100%;
     
 }
-.information-book-details p {
-    font-size: 16px;
-    line-height: 22px;
-    color: #333;
+.desc-wrapper h5 {
+    color: var(--Blue, #006EA6);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0;
 }
 .information-book-details .review-wrap {
     display: flex;
@@ -83,9 +91,18 @@
 }
 .details-author {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(1, 1fr);
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     align-items: flex-start;
+}
+.details-author h4 {
+    color: var(--Blue, #006EA6);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0 0 15px;
 }
 .author-name {
     display: flex;
@@ -100,39 +117,40 @@
 }
 .author-name .content, .box-data {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
     gap: 5px;
     width: 100%;
 }
 .author-name .content h5, .box-data h5 {
-    color: #6FC067;
-    font-size: 18px;
-    line-height: 24px;
-    margin: 0;
+    color: var(--Balck, #011627);
+    font-size: 14px;
     font-weight: 400;
+    line-height: 20px; 
+    margin: 0;
+    min-width: 150px;
+    width: 150px;
 }
 .author-name h6 .k-dropdownlist {
     border-color: #ced4da;
     background: transparent;
 }
 .author-name .content h6, .box-data h6 {
-    color: #222;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
+    color: var(--Balck, #011627);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
     margin: 0;
     width: 100%;
 }
 .pricing-section {
     padding: 16px 0;
-    border-top: 2px dashed #dee2e6;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-top: 24px;
 }
-.pricing-section .price {
+
+ .price {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -141,20 +159,19 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    width: 100%;
 }
-.pricing-section .price h2 {
-    font-size: 40px;
-    line-height: 48px;
+.price h2 {
+    color: var(--Orange, #ED553B);
+    font-size: 24px;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    line-height: 30px; margin: 0;
 }
 .price h2 .k-textbox {
     font-size: 18px;
 }
 
-.pricing-section .price span {
+ .price span {
     background: #6FC067;
     border-radius: 25px;
     padding: 4px 16px;
@@ -166,7 +183,8 @@
     border: 1px solid #dee2e6;
     border-radius: 8px;
     padding: 0 ;
-    height: 48px;
+    flex: 1;
+    height: 42px;
     display: flex;
     align-items: center;
 
@@ -175,38 +193,51 @@
     background: transparent;
     border: none;
     font-size: 40px;
-    width: 60px;   
-    line-height: 48px; 
+    flex: 1;
+    line-height: 42px; 
     cursor: pointer;
 }
-.cart-details .btn-grp h5 {
-    font-size: 26px;
-    text-align: center;
-
-    color: #6FC067;
-    line-height: 48px; 
+.btn-grp .disabled {
+    border-radius: 4px 0px 0px 4px;
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08)) !important; 
+    background: var(--Light, #FAFAFA) !important;
 }
-
+.cart-details .btn-grp h5 {
+    font-size: 16px;
+    text-align: center;
+    flex: 1;    
+    color: #011627;
+    border-left: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    border-right: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    line-height: 42px; 
+}
+.mb-3 {
+    margin-bottom: 16px;
+}
 .cart-details .btn-cart {
-    border-radius: 8px;
-    background: #6FC067;
+    border-radius: 4px;
+    border: 1px solid var(--Orange, #ED553B);
+    background: var(--Orange, #ED553B);
     padding: 0 16px;
     display: flex;
     gap: 10px;
     border: none;
+    justify-content: center;
     align-items: center;
     color: #fff;
     font-weight: 500;
     font-size: 16px;
-    line-height: 48px;
+    line-height: 42px;
     border: 1px solid transparent;
     box-shadow: 0 2px 5px 0 rgba(213,217,217,.5);
     cursor: pointer;
+    width: 100%;
 }
 .cart-details .btn-cart:hover {
     border: 1px solid #333;
 }
 .btn-content {
+    flex: 1;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -233,6 +264,8 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+        /* position: absolute;
+        right: 24px; */
 }
 .book-form-store, .book-view-cart {
     display: flex;
@@ -244,7 +277,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 14px;
 }
    
 .breadcrumbWrapper {
@@ -311,3 +343,138 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+.Description-content {
+    border-radius: 4px;
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    background: #FFF;
+    padding: 25px;
+    margin-top: 20px;
+}
+.Description-content h5 {
+    color: var(--Balck, #011627);
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;        
+    line-height: 30px; 
+    margin-top: 0;
+}
+.Description-content p {
+    color: var(--Balck, #011627);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 25px; 
+    margin: 0;
+}
+.topic-details-body {
+    border-radius: 4px;
+    border: 1px solid var(--Orange, #ED553B);
+    background: #FEF1EF;
+    padding: 25px;
+    margin-top: 20px;
+}
+.topic-details-body h5 {
+    color: var(--Balck, #011627);
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 20px;
+    line-height: 30px; 
+
+}
+.topic-details-body h5 span {
+    color: var(--Orange, #ED553B);
+}
+.topic-details-body h5 em {
+    color: var(--Balck, #011627);
+    font-style: italic;
+}
+.topic-details-body ul {
+    margin: 0;
+    padding-left: 0;
+    flex-wrap: wrap;
+    gap: 20px;
+    display: flex;
+}
+.topic-details-body ul li {
+    list-style: none;
+    border-radius: 4px;
+    background: var(--White, #FFF);
+    color: var(--Balck, #011627);
+    text-align: center;
+    font-size: 16px;
+    padding: 9px 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+.category-main-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 50px 0;
+}
+.category-card {
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    background: #FFF;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.category-card .img-wrap {
+    height: 268px;
+
+}
+.category-card .img-wrap img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}   
+.category-card .details {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px 0;
+}
+.category-card .details h5 {
+    color: var(--Balck, #011627);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px; 
+    margin: 0;
+ }
+.category-card .details h6 {
+    color: var(--Dark-Gray, #BCBCBC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    margin: 0;
+ }
+.category-card .details p { 
+    color: var(--Orange, #ED553B);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px; 
+    margin: 0;
+}
+.category-card .details .btn-cart {
+    border-radius: 4px;
+    border: 1px solid var(--Orange, #ED553B);
+    background: var(--Orange, #ED553B);
+    color: var(--White, #FFF);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;  
+    padding: 5px 9px;
+    margin-top: 15px;
+ }
+ .link-item-wrapper {
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+ }
+ .link-item-wrapper h4 {
+    margin: 0;
+    color: var(--Balck, #011627);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px; 
+ }

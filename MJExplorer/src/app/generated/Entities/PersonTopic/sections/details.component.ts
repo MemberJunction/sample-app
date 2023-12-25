@@ -19,16 +19,12 @@ import { PersonTopicEntity } from 'mj_generatedentities';
             <kendo-numerictextbox [(value)]="record.TopicID" ></kendo-numerictextbox>   
         </div>               
         <div class="record-form-row">
-            <label class="fieldLabel">Book Topic ID</label>
-            <kendo-numerictextbox [(value)]="record.BookTopicID" ></kendo-numerictextbox>   
-        </div>               
-        <div class="record-form-row">
-            <label class="fieldLabel">Date Added</label>
-            <kendo-datepicker [(value)]="record.DateAdded" ></kendo-datepicker>   
-        </div>               
-        <div class="record-form-row">
             <label class="fieldLabel">Interest Level</label>
             <kendo-numerictextbox [(value)]="record.InterestLevel" ></kendo-numerictextbox>   
+        </div>               
+        <div class="record-form-row">
+            <label class="fieldLabel">Created At</label>
+            <span >{{FormatValue('CreatedAt', 0)}}</span>   
         </div> 
     </div>
     <div *ngIf="!this.EditMode" class="record-form">
@@ -42,16 +38,12 @@ import { PersonTopicEntity } from 'mj_generatedentities';
             <span mjFieldLink [record]="record" fieldName="TopicID" >{{FormatValue('TopicID', 0)}}</span>
         </div>              
         <div class="record-form-row">
-            <label class="fieldLabel">Book Topic ID</label>
-            <span mjFieldLink [record]="record" fieldName="BookTopicID" >{{FormatValue('BookTopicID', 0)}}</span>
-        </div>              
-        <div class="record-form-row">
-            <label class="fieldLabel">Date Added</label>
-            <span >{{FormatValue('DateAdded', 0)}}</span>
-        </div>              
-        <div class="record-form-row">
             <label class="fieldLabel">Interest Level</label>
             <span >{{FormatValue('InterestLevel', 0)}}</span>
+        </div>              
+        <div class="record-form-row">
+            <label class="fieldLabel">Created At</label>
+            <span >{{FormatValue('CreatedAt', 0)}}</span>
         </div>
     </div>
 </div>
