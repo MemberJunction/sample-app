@@ -47,7 +47,7 @@ export class TopicDetailComponent {
       const rv = new RunView();
       const result = await rv.RunView({
         EntityName: 'Books',
-        ExtraFilter: `Id IN (SELECT bt.BookID from dbo.vwBookTopics bt WHERE bt.TopicID=${this.topicId})`
+        ExtraFilter: `Id IN (SELECT bt.BookID from books.vwBookTopics bt WHERE bt.TopicID=${this.topicId})`
 
       });
       if (result.Success) {

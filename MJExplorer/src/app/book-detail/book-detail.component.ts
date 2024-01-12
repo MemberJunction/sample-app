@@ -96,7 +96,7 @@ export class BookDetailComponent implements OnInit {
     const rv = new RunView();
     const result = await rv.RunView({
       EntityName: 'Topics',
-      ExtraFilter: `ID in (SELECT TOPICID from vwBookTopics WHERE BookID=${this.bookId})`
+      ExtraFilter: `ID in (SELECT TOPICID from books.vwBookTopics WHERE BookID=${this.bookId})`
     });
     if (result.Success && result.Results.length) {
       const results: any = result.Results;

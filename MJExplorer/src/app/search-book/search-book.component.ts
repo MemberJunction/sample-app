@@ -50,7 +50,7 @@ export class SearchBookComponent {
           let ExtraFilter = '';
           switch (this.selectedCriteria.value) {
             case ('Topics'): {
-              ExtraFilter = `Id IN (SELECT bt.BookID from dbo.vwBookTopics bt WHERE bt.Topic LIKE '%${this.searchText}%')`;
+              ExtraFilter = `Id IN (SELECT bt.BookID from books.vwBookTopics bt WHERE bt.Topic LIKE '%${this.searchText}%')`;
               break;
             }
             case ('Categories'): {

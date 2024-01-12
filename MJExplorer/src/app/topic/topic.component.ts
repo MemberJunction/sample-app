@@ -47,7 +47,7 @@ export class TopicComponent {
       const rv = new RunView();
       const result = await rv.RunView({
         EntityName: 'Books',
-        ExtraFilter: `Id IN (SELECT bt.BookID from dbo.vwBookTopics bt WHERE bt.TopicID=${this.topicId})`
+        ExtraFilter: `Id IN (SELECT bt.BookID from books.vwBookTopics bt WHERE bt.TopicID=${this.topicId})`
 
       });
       if (result.Success) {
@@ -67,7 +67,7 @@ export class TopicComponent {
       if (isComplete) {
         if (this.topicId !== null && this.topicId !== undefined) {
           if (this.topic === null || this.topic === undefined) {
-            this.topic = this.sharedData.BookCategories.find(r => r.ID === this.topicId);
+            this.topic = this.sharedData.Topics.find(r => r.ID === this.topicId);
           }
           if (this.topic !== null && this.topic !== undefined) {
             // get the tax data for this role from the shared data cache
