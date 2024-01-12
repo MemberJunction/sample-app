@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.admin-content {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.admin-header {
+  background: var(--Blue, #006ea6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 32px;
+}
+
+.admin-header .logo {
+  color: var(--White, #fff);
+  font-size: 32px;
+  font-family: Roboto;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 0.18px;
+  margin: 0;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.user-detail {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-detail .user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ccc;
+}
+
+.user-detail h5 {
+  color: #fff;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.18px;
+  margin: 0;
+}
+
+.left-sidebar {
+  border-right: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+  background: var(--White, #fff);
+  min-width: 282px;
+  width: 282px;
+  height: 100%;
+}
+
+.left-sidebar ul {
+  margin: 0;
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.left-sidebar ul li {
+  list-style-type: none;
+  padding: 12px 32px;
+  border-right: 3px solid transparent;
+}
+
+.left-sidebar ul li a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--Balck, #011627);
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.left-sidebar ul li:hover,
+.left-sidebar ul li.active {
+  border-right: 3px solid var(--Blue, #006ea6);
+  background: rgba(0, 110, 166, 0.08);
+}
+
+.left-sidebar ul li:hover a,
+.left-sidebar ul li.active a,
+.left-sidebar ul li:hover a svg path,
+.left-sidebar ul li.active a svg path {
+  color: var(--Blue, #006ea6);
+  fill: var(--Blue, #006ea6);
+}
+
+.wrapper-body {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep .custom-header .k-button {
+  border-radius: 4px;
+  border: 1px solid var(--Orange, #ED553B);
+  background: var(--Orange, #ED553B);
+  color: var(--component-text-white, #FFF);
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}

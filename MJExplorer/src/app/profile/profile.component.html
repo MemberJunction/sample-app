@@ -1,0 +1,205 @@
+<div class="role-wrap">
+  <div class="breadcrumbWrapper">
+    <div class="container-large">
+      <div class="breadcrumb">
+        <a routerLink="/">
+          <kendo-icon name="home"></kendo-icon>
+        </a> <kendo-icon name="arrow-chevron-right"></kendo-icon> <span class="active">Manage Profile</span>
+      </div>
+      <div class="back-sec">
+        <a routerLink="/select-role"><kendo-icon name="arrow-chevron-left"></kendo-icon>
+          Back</a>
+      </div>
+    </div>
+  </div>
+  <section class="tab-main-wrap">
+    <div class="container-large">
+      <h2>Manage Profile</h2>
+      <h3 *ngIf="topicDisabled">Please add your personal details to purchase books, add your favourite topics, view
+        orders etc.</h3>
+      <div class="org-body k-mt-4">
+        <kendo-tabstrip>
+          <kendo-tabstrip-tab title="Personal" [selected]="true">
+            <ng-template kendoTabContent>
+              <div class="content">
+                <div class="org-info" [formGroup]="personForm">
+                  <div class="info-row">
+                    <span class="info-label">First name </span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="FirstName" name="FirstName"
+                        formControlName="FirstName"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Last name </span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="LastName" name="LastName"
+                        formControlName="LastName"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Email</span>
+                    <span class="info-value">
+                      <kendo-textbox type="email" id="Email" name="Email" formControlName="Email"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Phone</span>
+                    <span class="info-value">
+                      <kendo-textbox type="number" id="Phone" name="Phone" formControlName="Phone"></kendo-textbox>
+                    </span>
+                  </div>
+                 
+                </div>
+                <div class="btn-row">
+                  <span class="info-value">
+                    <button class="btn-cancel">Cancel</button>
+                    <kendo-button name="save" class="btn-save" [primary]="true" [disabled]="!personForm.valid"
+                      (click)="onPersonalDataSave()">
+                      <span class="k-icon k-i-check"></span>
+                      Save</kendo-button>
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </kendo-tabstrip-tab>
+          <kendo-tabstrip-tab title="Business">
+            <ng-template kendoTabContent>
+              <div class="content">
+                <div class="org-info" [formGroup]="businessForm">
+                  <div class="info-row">
+                    <span class="info-label">Name</span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="Name" name="Name" formControlName="Name"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Address</span>
+                    <span class="info-value">
+                      <kendo-textarea type="text" id="Address" name="Address"
+                        formControlName="Address"></kendo-textarea>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">City</span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="City" name="City" formControlName="City"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">State/Province</span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="StateProvince" name="StateProvince"
+                        formControlName="StateProvince"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">PostalCode</span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="PostalCode" name="PostalCode"
+                        formControlName="PostalCode"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Country</span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="Country" name="Country" formControlName="Country"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Website</span>
+                    <span class="info-value">
+                      <kendo-textbox type="text" id="Website" name="Website" formControlName="Website"></kendo-textbox>
+                    </span>
+                  </div>
+                  <div class="info-row">
+                    <span class="info-label">Phone</span>
+                    <span class="info-value">
+                      <kendo-textbox type="number" id="Phone" name="Phone" formControlName="Phone"></kendo-textbox>
+                    </span>
+                  </div>
+                  <!-- <div class="info-row">
+                    <span class="info-value">
+                      <kendo-button name="save" [primary]="true" [disabled]="!businessForm.valid"
+                        (click)="onBusinessDataSave()">
+                        <span class="k-icon k-i-check"></span>
+                        Save</kendo-button>
+                    </span>
+                  </div> -->
+                </div>
+                <div class="btn-row">
+                  <span class="info-value">
+                    <button class="btn-cancel">Cancel</button>
+                    <kendo-button name="save" class="btn-save" [primary]="true" [disabled]="!businessForm.valid"
+                    (click)="onBusinessDataSave()">
+                      <span class="k-icon k-i-check"></span>
+                      Save</kendo-button>
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </kendo-tabstrip-tab>
+          <kendo-tabstrip-tab title="Personal Topics">
+            <ng-template kendoTabContent>
+              <div class="content">
+                <h4>Topics</h4>
+                <div class="content-wrapper">
+                  <div *ngFor="let personTopic of displayData" class="topic-box">
+                   <div class="wrap-input">
+                     <input type="checkbox" kendoCheckBox [(ngModel)]="personTopic.checked" />
+                     <h5>{{personTopic.Name}}</h5>
+                   </div>
+                    <div *ngIf="personTopic.checked" class="example-config">
+                      <kendo-slider 
+                        id="value" 
+                        [min]="0" 
+                        [smallStep]="1"
+                        [largeStep]="10"
+                        [showButtons]="false" 
+                        [max]="100"
+                        [title]="title"
+                        [(ngModel)]="personTopic.InterestLevel">
+                      </kendo-slider>
+                      {{personTopic.InterestLevel}}
+                    </div>
+                  </div>
+                </div>
+                <div class="btn-row">
+                  <span class="info-value">
+                    <kendo-button name="save" class="btn-save" [primary]="true"  [disabled]="!displayData.length"
+                    (click)="onPersonalTopicsSave()">
+                      <span class="k-icon k-i-check"></span>
+                      Save</kendo-button>
+                  </span>
+                </div>
+                <!-- <kendo-button name="save" [primary]="true" [disabled]="!displayData.length" (click)="onPersonalTopicsSave()">
+                        <span class="k-icon k-i-check"></span>
+                        Save</kendo-button> -->
+              </div>
+
+            </ng-template>
+          </kendo-tabstrip-tab>
+          <kendo-tabstrip-tab title="Orders">
+            <ng-template kendoTabContent>
+              <div class="content">
+                <div class="org-financials">
+                  <kendo-grid [kendoGridBinding]="purchases" [sortable]="true" [loading]="ordersLoading">
+                    <kendo-grid-column field="Date" title="Order Date">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                        {{dataItem.Date | date: 'dd/MM/yyyy'}}
+                      </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="GrandTotal" title="Total" format="c"></kendo-grid-column>
+                    <div *kendoGridDetailTemplate="let dataItem">
+                      <app-single-order [order]="dataItem"></app-single-order>
+                    </div>
+                  </kendo-grid>
+                </div>
+              </div>
+            </ng-template>
+          </kendo-tabstrip-tab>
+        </kendo-tabstrip>
+      </div>
+    </div>
+  </section>
+</div>

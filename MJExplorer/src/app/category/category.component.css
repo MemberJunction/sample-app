@@ -1,0 +1,77 @@
+.category-main-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 50px 0;
+}
+.category-card {
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    background: #FFF;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    cursor: pointer;
+}
+.category-card .img-wrap {
+    height: 268px;
+
+}
+.category-card .img-wrap img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}   
+.category-card .details {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 15px 0;
+}
+.category-card .details h5 {
+    color: var(--Balck, #011627);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px; 
+    margin: 0;
+ }
+.category-card .details h6 {
+    color: var(--Dark-Gray, #BCBCBC);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    margin: 0;
+ }
+.category-card .details p { 
+    color: var(--Orange, #ED553B);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px; 
+    margin: 0;
+}
+.category-card .details .btn-cart {
+    border-radius: 4px;
+    border: 1px solid var(--Orange, #ED553B);
+    background: var(--Orange, #ED553B);
+    color: var(--White, #FFF);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;  
+    padding: 5px 9px;
+    margin-top: 15px;
+    cursor: pointer;
+ }
+.role-title-wrap {
+    background: url('../../assets/fictionBanner.png')no-repeat top center /cover;
+    height: 400px;  
+    position: relative;
+}
+.editorial-main-wrapper .role-title-wrap h3 {
+    color: #FFF;
+    font-size: 50px;
+    font-weight: 800;
+    line-height: 135%; 
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+}

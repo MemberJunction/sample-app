@@ -1,0 +1,170 @@
+<div class="main-wrapper-class">
+    <div class="role-title">
+      <h3>adventure and adventurers</h3>
+      <div class="breadcrumb">
+        <a routerLink="/">
+          Topics
+        </a>
+        <kendo-icon name="arrow-chevron-right"></kendo-icon> <a class="active">adventure and adventurers</a>
+    
+    </div>
+    </div>
+    <kendo-tabstrip class="custom-tab">
+        <kendo-tabstrip-tab title="Details" [selected]="true">
+          <ng-template kendoTabContent>
+            <div class="org-info" >
+              <div class="info-row">
+                <span class="info-label">First name </span>
+                <span class="info-value">
+                  <kendo-textbox type="text" id="FirstName" name="FirstName"
+                    ></kendo-textbox>
+                </span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Last name </span>
+                <span class="info-value">
+                  <kendo-textbox type="text" id="LastName" name="LastName"
+                    ></kendo-textbox>
+                </span>
+              </div>
+            </div>
+            <div class="btn-row">
+              <span class="info-value">
+                <button class="btn-cancel">Cancel</button>
+                <kendo-button name="save" class="btn-save" [primary]="true" 
+                >
+                  <span class="k-icon k-i-check"></span>
+                  Save</kendo-button>
+              </span>
+            </div>
+          </ng-template>
+        </kendo-tabstrip-tab>
+        <kendo-tabstrip-tab title="Books">
+            <ng-template kendoTabContent>
+                <kendo-grid
+                [kendoGridBinding]='booksByTopic'
+                [pageSize]="10"
+                [pageable]="true"
+                [sortable]="true"
+                (edit)="editHandler($event)"
+                (cancel)="cancelHandler($event)"
+                (save)="saveHandler($event)"
+                (remove)="removeHandler($event)"
+                (add)="addHandler($event)"
+                (cellClick)="onGridRowClick($event)"
+                [navigable]="true"
+                >
+                <ng-template kendoGridToolbarTemplate>
+                    <button kendoGridAddCommand>Add new book</button>
+                </ng-template>
+                <kendo-grid-column field="Name" title="Name"></kendo-grid-column>
+                <kendo-grid-column field="CategoryID" title="Category">
+                    <ng-template
+                      kendoGridEditTemplate
+                      let-dataItem="dataItem"
+                      let-formGroup="formGroup"
+                    >
+                      <kendo-dropdownlist
+                        [data]="categories"
+                        textField="Name"
+                        valueField="ID"
+                        [valuePrimitive]="true"
+                        [formControl]="formGroup.get('BookCategoryID')"
+                      >
+                      </kendo-dropdownlist>
+                    </ng-template>
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                      {{ dataItem.BookCategory }}
+                    </ng-template>
+                  </kendo-grid-column>
+                <kendo-grid-column field="Pages" title="Pages" editor="numeric"></kendo-grid-column>
+                <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
+                <kendo-grid-command-column title="Action" [width]="220">
+                    <ng-template kendoGridCellTemplate let-isNew="isNew">
+                    <button kendoGridEditCommand [primary]="true">Edit</button>
+                    <button kendoGridRemoveCommand>Remove</button>
+                    <button kendoGridSaveCommand [disabled]="formGroup.invalid">
+                        {{ isNew ? "Add" : "Edit" }}
+                    </button>
+                    <button kendoGridCancelCommand>
+                        {{ isNew ? "Discard changes" : "Cancel" }}
+                    </button>
+                    </ng-template>
+                </kendo-grid-command-column>
+                </kendo-grid>
+            </ng-template>
+          </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+    <div *ngIf="!loaded">
+        <!-- <kendo-loader type="infinite-spinner" themeColor="primary" size="large"></kendo-loader> -->
+        <div class="gg-loader">
+            <img src="../../assets/loader.gif" />
+        </div>
+    </div>
+    <div *ngIf="loaded && topic" class="role-wrap">
+        <section class="tab-main-wrap">
+            <div class="container-large">
+                <div class="editorial-main-wrapper">
+                    
+                    <div class="layout-wrapper filter-close">
+                        <div class="grid-wrap">
+    
+                            <kendo-grid
+                                [kendoGridBinding]='booksByTopic'
+                                [pageSize]="10"
+                                [pageable]="true"
+                                [sortable]="true"
+                                (edit)="editHandler($event)"
+                                (cancel)="cancelHandler($event)"
+                                (save)="saveHandler($event)"
+                                (remove)="removeHandler($event)"
+                                (add)="addHandler($event)"
+                                (cellClick)="onGridRowClick($event)"
+                                [navigable]="true"
+                                >
+                                <ng-template kendoGridToolbarTemplate>
+                                    <button kendoGridAddCommand>Add new book</button>
+                                </ng-template>
+                                <kendo-grid-column field="Name" title="Name"></kendo-grid-column>
+                                <kendo-grid-column field="CategoryID" title="Category">
+                                    <ng-template
+                                      kendoGridEditTemplate
+                                      let-dataItem="dataItem"
+                                      let-formGroup="formGroup"
+                                    >
+                                      <kendo-dropdownlist
+                                        [data]="categories"
+                                        textField="Name"
+                                        valueField="ID"
+                                        [valuePrimitive]="true"
+                                        [formControl]="formGroup.get('BookCategoryID')"
+                                      >
+                                      </kendo-dropdownlist>
+                                    </ng-template>
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                      {{ dataItem.BookCategory }}
+                                    </ng-template>
+                                  </kendo-grid-column>
+                                <kendo-grid-column field="Pages" title="Pages" editor="numeric"></kendo-grid-column>
+                                <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
+                                <kendo-grid-command-column title="Action" [width]="220">
+                                    <ng-template kendoGridCellTemplate let-isNew="isNew">
+                                    <button kendoGridEditCommand [primary]="true">Edit</button>
+                                    <button kendoGridRemoveCommand>Remove</button>
+                                    <button kendoGridSaveCommand [disabled]="formGroup.invalid">
+                                        {{ isNew ? "Add" : "Edit" }}
+                                    </button>
+                                    <button kendoGridCancelCommand>
+                                        {{ isNew ? "Discard changes" : "Cancel" }}
+                                    </button>
+                                    </ng-template>
+                                </kendo-grid-command-column>
+                                </kendo-grid>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </div>

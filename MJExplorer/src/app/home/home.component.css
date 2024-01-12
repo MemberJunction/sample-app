@@ -1,0 +1,241 @@
+.more-info {
+    border-top: solid 5px rgb(153,179,172);
+    margin-top: 200px;
+}
+
+
+
+.container-large {
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    flex: 1;
+        display: flex;
+        align-items: center;
+}
+
+.card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+    padding: 32px 0;
+}
+
+.card-wrapper a {
+    text-decoration: none;
+}
+.kendo-card {
+    padding: 20px;
+    border-radius: 25px;
+    background: #FFF;
+    box-shadow: 0px 0px 10px 0px rgba(66, 66, 66, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+}
+.kendo-card .img-icon {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.kendo-card h3 {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #6FC067;
+    text-align: center;
+    color: #28533F;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.card-wrapper a:hover .kendo-card h3 {
+    color: #6FC067;
+    transition: all 0.5s ease;
+}
+.kendo-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.kendo-card p {
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 129%;
+    margin: 0;
+}
+ .header-section-tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 0;
+}
+.header-section-tag h5 {
+    color: var(--Balck, #011627);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px; 
+    margin: 0;
+}
+.header-section-tag h5 span {
+    color: var(--Orange, #ED553B);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px;
+}
+.header-section-tag .btn-view {
+    border-radius: 4px;
+    border: 1px solid var(--Gray, rgba(0, 0, 0, 0.08));
+    background: var(--Light, #FAFAFA);
+    color: var(--Balck, #011627);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px; 
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.header-section-tag .btn-view:hover {
+    background: #ED553B;
+    color: #fff;
+}
+.topic-section {
+    background: #FEF1EF;
+    margin: 50px 0;
+    padding-bottom: 50px;
+}
+
+.section-home {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.categories-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.category-list {
+    position: relative;
+    cursor: pointer;
+
+}
+.category-list h4 {
+    color: var(--White, #FFF);
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 40px; 
+    position: absolute;
+    top: 50%;   
+    transform: translate(-50%, -50%);
+    left: 50%;
+    margin: 0;
+    transition: all 0.5s ease;
+}
+.category-list:hover h4 {
+    color: #ED553B;
+    text-shadow: 2px 2px #dfdbdb;
+}
+.category-list img {
+    max-width: 100%;
+    height: auto;
+}
+.topic-list {
+    display: flex;
+}
+.topic-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    padding-left: 0;margin: 0;
+    
+}
+.topic-list ul li{ 
+    list-style: none;
+    border-radius: 4px;
+    background: var(--White, #FFF);
+    padding: 9px 16px;
+    cursor: pointer;
+}
+.topic-list ul li a {
+    color: var(--Balck, #011627);
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+
+}
+.topic-list ul li:hover {
+    background: #ED553B;
+    transition: all 0.4s ease;
+}
+    
+.topic-list ul li:hover a {
+    color: #fff;
+}
+.topic-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media (max-width: 991px) {
+    .card-wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        width: 100%;
+        }
+        
+        .kendo-card h3 {
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+    .container-large {
+        max-width: 100%;
+        width: 100%;
+        padding: 50px 16px;
+
+    }
+
+
+
+    .kendo-card {
+        padding: 26px;
+    }
+
+    .kendo-card h3 {
+        margin-top: 24px;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+    }
+
+    .kendo-card h3 a {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 576px) {
+    .card-wrapper {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 24px;
+        width: 100%;
+        padding: 0;
+        }
+}

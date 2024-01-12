@@ -1,0 +1,61 @@
+<!-- <div class="breadcrumb"><a routerLink="/"><kendo-icon name="home"></kendo-icon></a> : Search Organizations</div> -->
+<div class="search-main-wrapper">
+    <div class="breadcrumbWrapper">
+        <div class="container-large">
+            <div class="breadcrumb">
+                <a routerLink="/">
+                    <kendo-icon name="home"></kendo-icon>
+                </a>
+                <kendo-icon name="arrow-chevron-right"></kendo-icon> <a class="active">Search by Organization</a>
+
+            </div>
+            <div class="back-sec">
+                <a routerLink="/">
+                    <kendo-icon name="arrow-chevron-left"></kendo-icon>
+                    Back
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="header-banner">
+        <h2>Search Any Organization You Want</h2>
+        <div class="search-header">
+            <kendo-combobox #filterContactLevel class="filter-item-large" [data]="searchCriteria" textField="name"
+                valueField="value" placeholder="Position Level" [(value)]="selectedCriteria">
+            </kendo-combobox>
+            <input kendoTextBox type="text" [(ngModel)]="searchText" class="search-textbox"
+                placeholder="Search by Name, Web Domain, or Tax ID" (keydown.enter)="doSearch()" />
+            <button kendoButton (click)="doSearch()" class="search-button">
+                <img src="../../assets/zoom.png" alt="" /> Search
+            </button>
+        </div>
+    </div>
+    <!-- <kendo-loader *ngIf="runningSearch"></kendo-loader> -->
+    <div class="gg-loader" *ngIf="runningSearch">
+        <img src="../../assets/loader.gif" />
+    </div>
+    <div class="no-data" *ngIf="!runningSearch && !searchResults">
+        <div class="img-wrap">
+            <img src="../../assets/noDataImg.png" alt="" />
+            <p>
+                Uncover Earning Insights: Begin Your Search for Comprehensive Salary
+                Data and Trends
+            </p>
+        </div>
+    </div>
+    <div *ngIf="runningSearch === false && !!searchResults" class="result-data-wrapper">
+        <div class="container-large">
+            <div class="result-data">
+                <span>{{searchResults.length}} Results</span>
+            </div>
+            <div class="search-results">
+                <kendo-grid [kendoGridBinding]='searchResults' (cellClick)="onGridRowClick($event)" [pageSize]="10"
+                    [pageable]="true">
+                    <kendo-grid-column field="Name" title="Name" format="c0"></kendo-grid-column>
+                    <kendo-grid-column field="Pages" title="Pages"></kendo-grid-column>
+                    <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
+                </kendo-grid>
+            </div>
+        </div>
+    </div>
+</div>

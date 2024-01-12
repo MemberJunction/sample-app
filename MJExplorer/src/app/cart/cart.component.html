@@ -1,0 +1,111 @@
+<div>
+  <div class="breadcrumbWrapper">
+    <div class="container-large">
+      <div class="breadcrumb">
+        <a routerLink="/">
+          <kendo-icon name="home"></kendo-icon>
+        </a>
+        <kendo-icon name="arrow-chevron-right"></kendo-icon>
+        <a class="active">Shopping Cart</a>
+      </div>
+      <div class="back-sec">
+        <a routerLink="/">
+          <kendo-icon name="arrow-chevron-left"></kendo-icon>
+          Back
+        </a>
+      </div>
+    </div>
+  </div>
+  <section class="cart-store-container">
+    <div class="cart-details-wrapper">
+      <h1>My Cart</h1>
+      <div class="content-card-body">
+        <div class="cart-container">
+          <div class="product" *ngFor="let book of cartItems">
+            <div class="container">
+              <div class="header-text ">Product</div>
+              <div class="header-text" align="center">Quantity</div>
+              <div class="header-text" align="right">Price</div>
+            </div>
+            <div class="data">
+              <div class="data-item">
+                <div class="item-store">
+                  <a class="remove-button" (click)="removeItem(book)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                      <path d="M6.08975 17.0833C5.67549 17.0833 5.32085 16.9358 5.02585 16.6408C4.73084 16.3458 4.58333 15.9912 4.58333 15.5769V4.99999H4.375C4.19792 4.99999 4.04948 4.94007 3.92969 4.82022C3.8099 4.70039 3.75 4.55189 3.75 4.37472C3.75 4.19757 3.8099 4.04917 3.92969 3.92951C4.04948 3.80985 4.19792 3.75001 4.375 3.75001H7.49998C7.49998 3.54596 7.57183 3.37208 7.71552 3.22839C7.85922 3.0847 8.03309 3.01285 8.23715 3.01285H11.7628C11.9669 3.01285 12.1407 3.0847 12.2844 3.22839C12.4281 3.37208 12.5 3.54596 12.5 3.75001H15.625C15.802 3.75001 15.9505 3.80994 16.0703 3.92979C16.1901 4.04963 16.25 4.19813 16.25 4.37528C16.25 4.55245 16.1901 4.70086 16.0703 4.82051C15.9505 4.94017 15.802 4.99999 15.625 4.99999H15.4166V15.5769C15.4166 15.9912 15.2691 16.3458 14.9741 16.6408C14.6791 16.9358 14.3245 17.0833 13.9102 17.0833H6.08975ZM14.1666 4.99999H5.83331V15.5769C5.83331 15.6517 5.85735 15.7131 5.90544 15.7612C5.95352 15.8093 6.01496 15.8333 6.08975 15.8333H13.9102C13.985 15.8333 14.0464 15.8093 14.0945 15.7612C14.1426 15.7131 14.1666 15.6517 14.1666 15.5769V4.99999ZM8.46181 14.1667C8.63897 14.1667 8.78737 14.1068 8.90702 13.987C9.02669 13.8672 9.08652 13.7188 9.08652 13.5417V7.29164C9.08652 7.11457 9.0266 6.96614 8.90675 6.84635C8.7869 6.72656 8.6384 6.66666 8.46125 6.66666C8.28408 6.66666 8.13567 6.72656 8.01602 6.84635C7.89637 6.96614 7.83654 7.11457 7.83654 7.29164V13.5417C7.83654 13.7188 7.89647 13.8672 8.01631 13.987C8.13615 14.1068 8.28465 14.1667 8.46181 14.1667ZM11.5387 14.1667C11.7159 14.1667 11.8643 14.1068 11.9839 13.987C12.1036 13.8672 12.1634 13.7188 12.1634 13.5417V7.29164C12.1634 7.11457 12.1035 6.96614 11.9836 6.84635C11.8638 6.72656 11.7153 6.66666 11.5381 6.66666C11.361 6.66666 11.2126 6.72656 11.0929 6.84635C10.9733 6.96614 10.9134 7.11457 10.9134 7.29164V13.5417C10.9134 13.7188 10.9734 13.8672 11.0932 13.987C11.2131 14.1068 11.3616 14.1667 11.5387 14.1667Z" fill="#F31700"/>
+                    </svg>
+                   </a>
+                  <div class="img-preview">
+                    <img src="../../assets/book1.png"
+                    alt="Product 1" />
+                  </div>
+                   <h2>{{book.Name}}</h2>
+                </div>
+              </div>
+              <div class="data-item">
+                <div class="book-btn-group">
+                  <div class="btn-grp">
+                    <button class="disabled" (click)="decreaseQuantity(book)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M5.2085 10.625C5.03141 10.625 4.88298 10.5651 4.76318 10.4452C4.64339 10.3254 4.5835 10.1769 4.5835 9.99972C4.5835 9.82256 4.64339 9.67415 4.76318 9.55449C4.88298 9.43484 5.03141 9.37502 5.2085 9.37502H14.7918C14.9689 9.37502 15.1173 9.43493 15.2371 9.55477C15.3569 9.67461 15.4168 9.82311 15.4168 10.0003C15.4168 10.1774 15.3569 10.3258 15.2371 10.4455C15.1173 10.5651 14.9689 10.625 14.7918 10.625H5.2085Z" fill="#BCBCBC"/>
+                      </svg>
+                    </button>
+                    <h5>{{book.Quantity}}</h5>
+                    <button (click)="increaseQuantity(book)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M9.37516 10.625H5.2085C5.03141 10.625 4.88298 10.5651 4.76318 10.4452C4.64339 10.3254 4.5835 10.1769 4.5835 9.99973C4.5835 9.82257 4.64339 9.67416 4.76318 9.55451C4.88298 9.43485 5.03141 9.37503 5.2085 9.37503H9.37516V5.20836C9.37516 5.03128 9.43508 4.88284 9.55491 4.76305C9.67476 4.64325 9.82326 4.58336 10.0004 4.58336C10.1776 4.58336 10.326 4.64325 10.4456 4.76305C10.5653 4.88284 10.6251 5.03128 10.6251 5.20836V9.37503H14.7918C14.9689 9.37503 15.1173 9.43494 15.2371 9.55478C15.3569 9.67462 15.4168 9.82312 15.4168 10.0003C15.4168 10.1774 15.3569 10.3259 15.2371 10.4455C15.1173 10.5652 14.9689 10.625 14.7918 10.625H10.6251V14.7917C10.6251 14.9687 10.5652 15.1172 10.4454 15.237C10.3255 15.3568 10.177 15.4167 9.99987 15.4167C9.8227 15.4167 9.67429 15.3568 9.55464 15.237C9.43499 15.1172 9.37516 14.9687 9.37516 14.7917V10.625Z" fill="#011627"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="data-item"> <p class="price">${{calculateTotal(book)}}.00</p></div>
+              <!-- Add more data items as needed -->
+            </div>
+          
+         
+            <div class="product-info">
+              <!-- <h2>{{book.Name}}</h2> -->
+              <!-- <p>{{book.Description}}</p> -->
+              <!-- <p class="price">${{calculateTotal(book)}}</p> -->
+             <!-- <div class="book-btn-group">
+               <div class="btn-grp">
+                 <button (click)="decreaseQuantity(book)">-</button>
+                 <h5>{{book.Quantity}}</h5>
+                 <button (click)="increaseQuantity(book)">+</button>
+               </div>
+               
+             </div> -->
+            </div>
+          </div>
+          <div class="no-data" *ngIf="!this.cartItems.length">
+            <h6>Shopping cart</h6>
+            <div class="icon">
+              <svg fill="#000000" width="100px" height="100px" viewBox="0 0 24 24" id="cart" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M18.5,20.5A1.5,1.5,0,1,1,17,19,1.5,1.5,0,0,1,18.5,20.5ZM11,19a1.5,1.5,0,1,0,1.5,1.5A1.5,1.5,0,0,0,11,19Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M21.79,6.38A1,1,0,0,0,21,6H7.48L7.12,3.69A2,2,0,0,0,5.14,2H3A1,1,0,0,0,3,4H5.14L7,16.15A1,1,0,0,0,8,17h.09l11-1a1,1,0,0,0,.88-.76l2-8A1,1,0,0,0,21.79,6.38Z" style="fill: rgb(0, 0, 0);"></path></svg>
+            </div>
+            <h5>Your Cart is currently Empty</h5>
+            <!-- <button class="checkout-button" >Return to Shop</button> -->
+          </div>
+        </div>
+        <div class="total">
+          <div class="cart-detail">
+            <h5>Total</h5>
+            <h6>${{ grandTotal }} USD</h6>
+          </div>  
+          <button
+            class="checkout-button"
+            [ngClass]="{ 'k-disabled': !this.cartItems.length }"
+            [disabled]="!this.cartItems.length"
+            (click)="checkout()"
+          >
+            Proceed to Checkout
+          </button>
+
+          <kendo-button [primary]="true" routerLink="/home">
+            Continue Shopping</kendo-button
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

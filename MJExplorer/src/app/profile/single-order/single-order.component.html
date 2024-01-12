@@ -1,0 +1,17 @@
+<kendo-grid
+      [kendoGridBinding]="books"
+      [loading]="isLoading"
+      [pageSize]="5"
+      [pageable]="true"
+      scrollable="none"
+      [navigable]="true"
+      kendoGridFocusable
+    >
+      <kendo-grid-column field="Book" title="Book">
+      </kendo-grid-column>
+      <kendo-grid-column field="Quantity" title="Quantity">
+      </kendo-grid-column>
+      <kendo-grid-column field="Amount" title="Amount" format="c">
+      </kendo-grid-column>
+      <kendo-grid-column field="Total" title="Total" format="c"></kendo-grid-column>
+    </kendo-grid>

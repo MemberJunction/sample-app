@@ -1,0 +1,38 @@
+<kendo-grid 
+  [kendoGridBinding]="subCategories" 
+  [loading]="isLoading" 
+  [pageSize]="5" 
+  [pageable]="true" 
+  scrollable="none"
+  [navigable]="true" 
+  (edit)="editHandler($event)"
+  (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)"
+  (remove)="removeHandler($event)"
+  (add)="addHandler($event)"
+  (cellClick)="onGridRowClick($event)"
+  kendoGridFocusable
+  >
+  <ng-template kendoGridToolbarTemplate>
+    <div class="custom-header">
+      <p>List of Sub-Categories</p>
+      <button kendoGridAddCommand>Add new</button>
+    </div>
+  </ng-template>
+  <kendo-grid-column field="Name" title="Name">
+  </kendo-grid-column>
+  <kendo-grid-column field="Description" title="Description">
+  </kendo-grid-column>
+  <kendo-grid-command-column title="Action" [width]="220">
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <button kendoGridEditCommand [primary]="true">Edit</button>
+      <button kendoGridRemoveCommand>Remove</button>
+      <button kendoGridSaveCommand>
+        {{ isNew ? "Add" : "Edit" }}
+      </button>
+      <button kendoGridCancelCommand>
+        {{ isNew ? "Discard changes" : "Cancel" }}
+      </button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>

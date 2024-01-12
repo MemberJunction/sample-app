@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import { PersonEntity } from 'mj_generatedentities';
+import { RegisterClass } from '@memberjunction/global';
+import { BaseFormComponent } from '@memberjunction/ng-explorer-core';
+import { LoadPersonDetailsComponent } from "./sections/details.component"
+@RegisterClass(BaseFormComponent, 'Persons') // Tell MemberJunction about this class
+@Component({
+    selector: 'gen-person-form',
+    templateUrl: './person.form.component.html',
+    styleUrls: ['../../../../shared/form-styles.css']
+})
+export class PersonFormComponent extends BaseFormComponent {
+    public record: PersonEntity | null = null;
+} 
+
+export function LoadPersonFormComponent() {
+    LoadPersonDetailsComponent();
+}

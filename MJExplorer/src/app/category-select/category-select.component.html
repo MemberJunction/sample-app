@@ -1,0 +1,55 @@
+<ng-container *ngIf="auth.authenticated">
+  <div *ngIf="!loaded">
+    <div class="gg-loader">
+      <kendo-loader type="converging-spinner" themeColor="info" size="large">
+      </kendo-loader>
+    </div>
+  </div>
+  <div *ngIf="loaded" class="interior-component">
+    <div class="breadcrumbWrapper">
+      <div class="container-large">
+        <div class="breadcrumb">
+          <a routerLink="/">
+            <kendo-icon name="home"></kendo-icon>
+          </a>
+          <kendo-icon name="arrow-chevron-right"></kendo-icon> <a class="active">Book by Category</a>
+
+        </div>
+        <div class="back-sec">
+          <a routerLink="/">
+            <kendo-icon name="arrow-chevron-left"></kendo-icon>
+            Back
+          </a>
+        </div>
+      </div>
+    </div>
+    <section class="search-category">
+      <div class="container-large">
+        <div class="search-main-wrapper">
+          <div class="search-box">
+            <h5><span>Search</span> for Category </h5>
+            <div class="input-wrapper">
+              <input type="text" placeholder="search" />
+              <div class="search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M9.51922 15.6153C7.81154 15.6153 6.36539 15.023 5.18079 13.8384C3.99618 12.6538 3.40387 11.2077 3.40387 9.49999C3.40387 7.79231 3.99618 6.34616 5.18079 5.16154C6.36539 3.97694 7.81154 3.38464 9.51922 3.38464C11.2269 3.38464 12.6731 3.97694 13.8577 5.16154C15.0423 6.34616 15.6346 7.79231 15.6346 9.49999C15.6346 10.2141 15.5147 10.8961 15.275 11.5461C15.0352 12.1961 14.7153 12.7615 14.3153 13.2423L20.0692 18.9961C20.2077 19.1346 20.2785 19.3087 20.2817 19.5183C20.2849 19.7279 20.2141 19.9051 20.0692 20.05C19.9243 20.1948 19.7487 20.2673 19.5423 20.2673C19.3359 20.2673 19.1603 20.1948 19.0154 20.05L13.2615 14.2961C12.7615 14.7089 12.1865 15.032 11.5365 15.2653C10.8865 15.4987 10.2141 15.6153 9.51922 15.6153ZM9.51922 14.1154C10.8077 14.1154 11.899 13.6683 12.7933 12.774C13.6875 11.8798 14.1346 10.7885 14.1346 9.49999C14.1346 8.21153 13.6875 7.12018 12.7933 6.22594C11.899 5.33171 10.8077 4.88459 9.51922 4.88459C8.23075 4.88459 7.1394 5.33171 6.24517 6.22594C5.35095 7.12018 4.90384 8.21153 4.90384 9.49999C4.90384 10.7885 5.35095 11.8798 6.24517 12.774C7.1394 13.6683 8.23075 14.1154 9.51922 14.1154Z"
+                    fill="white" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="list-wrapper-store">
+            <h4>Categories List</h4>
+            <div class="categories-wrapper">
+              <div class="category-list" *ngFor="let category of categories" (click)="categorySelect(category)">
+                <img src="../../assets/art.png" alt="">
+                <h4>{{ category.Name }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</ng-container>

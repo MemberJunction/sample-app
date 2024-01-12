@@ -1,0 +1,37 @@
+<div class="topics-container">
+    <kendo-grid
+        [kendoGridBinding]='booksByCategory'
+        [pageSize]="10"
+        [pageable]="true"
+        [sortable]="true"
+        (edit)="editHandler($event)"
+        (cancel)="cancelHandler($event)"
+        (save)="saveHandler($event)"
+        (remove)="removeHandler($event)"
+        (add)="addHandler($event)"
+        (cellClick)="onGridRowClick($event)"
+        [navigable]="true"
+        >
+        <ng-template kendoGridToolbarTemplate>
+            <div class="custom-header">
+                <h5>List of Books</h5>
+                <button kendoGridAddCommand>Add new Book</button>
+            </div>
+        </ng-template>
+        <kendo-grid-column field="Name" title="Name"></kendo-grid-column>
+        <kendo-grid-column field="Pages" title="Pages" editor="numeric"></kendo-grid-column>
+        <kendo-grid-column field="Description" title="Description"></kendo-grid-column>
+        <kendo-grid-command-column title="Action" [width]="220">
+            <ng-template kendoGridCellTemplate let-isNew="isNew">
+            <button kendoGridEditCommand [primary]="true">Edit</button>
+            <button kendoGridRemoveCommand>Remove</button>
+            <button kendoGridSaveCommand [disabled]="formGroup.invalid">
+                {{ isNew ? "Add" : "Edit" }}
+            </button>
+            <button kendoGridCancelCommand>
+                {{ isNew ? "Discard changes" : "Cancel" }}
+            </button>
+            </ng-template>
+        </kendo-grid-command-column>
+    </kendo-grid>
+</div>
